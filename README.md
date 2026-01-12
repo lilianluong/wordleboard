@@ -53,13 +53,26 @@ You can use a tool like [PWA Asset Generator](https://github.com/onderceylan/pwa
 npm install
 ```
 
-### 5. Run Development Server
+### 5. Set Up Environment Variables
+
+Create a `.env.local` file in the project root:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+Get these values from Supabase Dashboard → Settings → API
+
+### 6. Run Development Server
 
 ```bash
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+See `docs/local-testing.md` for detailed testing instructions.
 
 ## Deployment to Vercel
 
