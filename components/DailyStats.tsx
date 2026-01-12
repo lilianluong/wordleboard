@@ -65,9 +65,9 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
 
         if (response.ok && data.submissions) {
           // Get unique wordle numbers and sort descending (newest first)
-          const uniqueWordles = Array.from(
+          const uniqueWordles = Array.from<number>(
             new Set(data.submissions.map((s: Submission) => s.wordle_number))
-          ).sort((a, b) => b - a) as number[];
+          ).sort((a, b) => b - a);
           
           setAvailableWordles(uniqueWordles);
 
