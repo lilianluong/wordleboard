@@ -7,8 +7,18 @@ export async function GET(request: Request) {
   const next = requestUrl.searchParams.get("next") || "/";
 
   if (code) {
-    const supabase = await createClient();
-    await supabase.auth.exchangeCodeForSession(code);
+    try {
+      const supabase = await createClient();
+      const { error } = await supabase.auth.exchangeCodeForSession(code);
+      
+      if (error) {
+        console.error("Error exchanging code for session:", error);
+        return NextResponse.redirect(new URL("/login?error=auth_failed", requestUrl.origin));
+      }
+    } catch (error) {
+      console.error("Error in auth callback:", error);
+      return NextResponse.redirect(new URL("/login?error=auth_failed", requestUrl.origin));
+    }
   }
 
   return NextResponse.redirect(new URL(next, requestUrl.origin));

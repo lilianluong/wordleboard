@@ -37,7 +37,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
     });
 
     return () => subscription.unsubscribe();
-  }, [router, supabase.auth]);
+  }, [router]);
 
   if (loading) {
     return (

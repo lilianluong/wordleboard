@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
 
 interface Submission {
   wordle_number: number;
@@ -40,11 +39,11 @@ export default function UserStats({ userId }: UserStatsProps) {
       const data = await response.json();
 
       if (response.ok && data.submissions) {
-        const uniqueUserIds = [
-          ...new Set(data.submissions.map((s: any) => s.user_id)),
+        const uniqueUserIds: string[] = [
+          ...new Set(data.submissions.map((s: any) => s.user_id as string)),
         ];
         setUsers(
-          uniqueUserIds.map((id) => ({
+          uniqueUserIds.map((id: string) => ({
             id,
             email: data.submissions.find((s: any) => s.user_id === id)?.user?.email || id.substring(0, 8) + "...",
           }))

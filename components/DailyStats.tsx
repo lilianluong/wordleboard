@@ -77,16 +77,7 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
   }
 
   const currentWordle = targetWordle || submissions[0]?.wordle_number;
-
-  // Group by user
-  const userMap = new Map<string, Submission>();
-  submissions.forEach((sub) => {
-    if (!userMap.has(sub.user_id)) {
-      userMap.set(sub.user_id, sub);
-    }
-  });
-
-  const userSubmissions = Array.from(userMap.values());
+  const userSubmissions = submissions; // Already grouped in fetchSubmissions
 
   return (
     <div className="space-y-4">
