@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
   webpack: (config, { isServer }) => {
     return config;
   },
+  // Add empty turbopack config to silence the warning
+  turbopack: {},
 };
 
 const pwa = withPWA({
