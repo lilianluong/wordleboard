@@ -42,11 +42,16 @@ export async function POST(request: Request) {
 
     // Upsert user profile with email
     if (user.email) {
-      await supabase.from("user_profiles").upsert({
+      const { error: profileError } = await supabase.from("user_profiles").upsert({
         user_id: user.id,
         email: user.email,
         updated_at: new Date().toISOString(),
       });
+      
+      if (profileError) {
+        console.error("Error upserting user profile:", profileError);
+        // Continue anyway - profile update is not critical
+      }
     }
 
     if (existing) {
@@ -115,10 +120,7 @@ export async function GET(request: Request) {
 
     let query = supabase
       .from("wordle_submissions")
-      .select(`
-        *,
-        user_profiles(email)
-      `)
+      .select("*")
       .order("submitted_at", { ascending: false });
 
     if (wordleNumber) {
@@ -134,22 +136,35 @@ export async function GET(request: Request) {
     if (error) {
       console.error("Error fetching submissions:", error);
       return NextResponse.json(
-        { error: "Failed to fetch submissions" },
+        { error: "Failed to fetch submissions", details: error.message },
         { status: 500 }
       );
     }
 
+    // Fetch user profiles
+    let profilesMap = new Map<string, string>();
+    const { data: profiles, error: profilesError } = await supabase
+      .from("user_profiles")
+      .select("user_id, email");
+    
+    if (profilesError) {
+      console.error("Error fetching user profiles:", profilesError);
+      // Continue without profiles - will fall back to user IDs
+    } else if (profiles) {
+      profiles.forEach((profile: any) => {
+        profilesMap.set(profile.user_id, profile.email);
+      });
+    }
+
     // Transform the data to include user email in a consistent format
     const submissionsWithUser = (data || []).map((submission: any) => {
-      // user_profiles is an array from the join, get the first item
-      const profile = Array.isArray(submission.user_profiles) 
-        ? submission.user_profiles[0] 
-        : submission.user_profiles;
+      const profileEmail = profilesMap.get(submission.user_id);
+      const email = profileEmail || (submission.user_id === user.id ? user.email : null) || null;
       
       return {
         ...submission,
         user: {
-          email: profile?.email || (submission.user_id === user.id ? user.email : null) || null,
+          email,
         },
       };
     });
