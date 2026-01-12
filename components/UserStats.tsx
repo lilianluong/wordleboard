@@ -39,9 +39,8 @@ export default function UserStats({ userId }: UserStatsProps) {
       const data = await response.json();
 
       if (response.ok && data.submissions) {
-        const uniqueUserIds: string[] = [
-          ...new Set(data.submissions.map((s: any) => s.user_id as string)),
-        ];
+        const userIds = data.submissions.map((s: any) => s.user_id as string);
+        const uniqueUserIds: string[] = Array.from(new Set(userIds));
         setUsers(
           uniqueUserIds.map((id: string) => ({
             id,
