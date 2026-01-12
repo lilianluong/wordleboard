@@ -4,6 +4,8 @@ import Link from "next/link";
 import AuthGuard from "@/components/AuthGuard";
 import UserStats from "@/components/UserStats";
 
+export const dynamic = "force-dynamic";
+
 export default function StatsPage() {
   return (
     <AuthGuard>

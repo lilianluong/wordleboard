@@ -22,16 +22,20 @@ export function parseWordleGrid(input: string): ParsedWordle | null {
       return null;
     }
 
-    // Parse first line: "Wordle 1234 3/6"
+    // Parse first line: "Wordle 1,667 5/6" or "Wordle 1,667 5/6*"
     const firstLine = lines[0];
-    const wordleMatch = firstLine.match(/Wordle\s+(\d+)/i);
-    const guessesMatch = firstLine.match(/(\d+)\/(\d+)/);
+    // Match wordle number with optional commas: "Wordle 1,667" -> "1,667"
+    const wordleMatch = firstLine.match(/Wordle\s+([\d,]+)/i);
+    // Match guesses: "5/6" or "5/6*" -> "5/6"
+    const guessesMatch = firstLine.match(/(\d+)\/(\d+)\*?/);
 
     if (!wordleMatch || !guessesMatch) {
       return null;
     }
 
-    const wordleNumber = parseInt(wordleMatch[1], 10);
+    // Remove commas from wordle number before parsing: "1,667" -> "1667"
+    const wordleNumberStr = wordleMatch[1].replace(/,/g, '');
+    const wordleNumber = parseInt(wordleNumberStr, 10);
     const guesses = parseInt(guessesMatch[1], 10);
     const maxGuesses = parseInt(guessesMatch[2], 10);
 
@@ -39,20 +43,9 @@ export function parseWordleGrid(input: string): ParsedWordle | null {
       return null;
     }
 
-    // Check if won by looking at the last row of emojis
-    // If the last row has all green squares (🟩), the user won
-    const emojiLines = lines.slice(1);
-    if (emojiLines.length === 0) {
-      return null;
-    }
-
-    const lastRow = emojiLines[emojiLines.length - 1];
-    // Check if last row is all green squares
-    const allGreen = /^🟩+$/.test(lastRow.trim());
-    
-    // Also check if guesses match the number of rows
-    const actualRows = emojiLines.length;
-    const won = allGreen && actualRows === guesses;
+    // Win/loss logic: Only a loss if it's X/6 (guesses = maxGuesses)
+    // Otherwise (1/6, 2/6, 3/6, 4/6, 5/6), it's a win
+    const won = guesses < maxGuesses;
 
     return {
       wordleNumber,

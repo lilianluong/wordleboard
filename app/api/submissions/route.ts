@@ -40,6 +40,15 @@ export async function POST(request: Request) {
       .eq("wordle_number", parsed.wordleNumber)
       .single();
 
+    // Upsert user profile with email
+    if (user.email) {
+      await supabase.from("user_profiles").upsert({
+        user_id: user.id,
+        email: user.email,
+        updated_at: new Date().toISOString(),
+      });
+    }
+
     if (existing) {
       // Update existing submission
       const { error } = await supabase
@@ -106,7 +115,10 @@ export async function GET(request: Request) {
 
     let query = supabase
       .from("wordle_submissions")
-      .select("*")
+      .select(`
+        *,
+        user_profiles(email)
+      `)
       .order("submitted_at", { ascending: false });
 
     if (wordleNumber) {
@@ -127,11 +139,18 @@ export async function GET(request: Request) {
       );
     }
 
-    // Add user email if available (from current user's perspective)
+    // Transform the data to include user email in a consistent format
     const submissionsWithUser = (data || []).map((submission: any) => {
+      // user_profiles is an array from the join, get the first item
+      const profile = Array.isArray(submission.user_profiles) 
+        ? submission.user_profiles[0] 
+        : submission.user_profiles;
+      
       return {
         ...submission,
-        user: submission.user_id === user.id ? { email: user.email } : undefined,
+        user: {
+          email: profile?.email || (submission.user_id === user.id ? user.email : null) || null,
+        },
       };
     });
 

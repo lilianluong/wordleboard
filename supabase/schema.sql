@@ -46,3 +46,37 @@ CREATE POLICY "Users can delete their own submissions"
   FOR DELETE
   TO authenticated
   USING (auth.uid() = user_id);
+
+-- Create user_profiles table to store user emails
+CREATE TABLE IF NOT EXISTS user_profiles (
+  user_id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  email TEXT NOT NULL,
+  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
+-- Create index for faster queries
+CREATE INDEX IF NOT EXISTS idx_user_profiles_email ON user_profiles(email);
+
+-- Enable Row Level Security
+ALTER TABLE user_profiles ENABLE ROW LEVEL SECURITY;
+
+-- Policy: Users can read all profiles (to see everyone's emails)
+CREATE POLICY "Users can read all profiles"
+  ON user_profiles
+  FOR SELECT
+  TO authenticated
+  USING (true);
+
+-- Policy: Users can insert/update their own profile
+CREATE POLICY "Users can insert their own profile"
+  ON user_profiles
+  FOR INSERT
+  TO authenticated
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can update their own profile"
+  ON user_profiles
+  FOR UPDATE
+  TO authenticated
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);

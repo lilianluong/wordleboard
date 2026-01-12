@@ -42,10 +42,13 @@ export default function UserStats({ userId }: UserStatsProps) {
         const userIds = data.submissions.map((s: any) => s.user_id as string);
         const uniqueUserIds: string[] = Array.from(new Set(userIds));
         setUsers(
-          uniqueUserIds.map((id: string) => ({
-            id,
-            email: data.submissions.find((s: any) => s.user_id === id)?.user?.email || id.substring(0, 8) + "...",
-          }))
+          uniqueUserIds.map((id: string) => {
+            const submission = data.submissions.find((s: any) => s.user_id === id);
+            return {
+              id,
+              email: submission?.user?.email || id.substring(0, 8) + "...",
+            };
+          })
         );
 
         if (uniqueUserIds.length > 0 && !selectedUserId) {

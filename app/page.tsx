@@ -7,6 +7,8 @@ import type { User } from "@supabase/supabase-js";
 import AuthGuard from "@/components/AuthGuard";
 import DailyStats from "@/components/DailyStats";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
 

@@ -7,6 +7,8 @@ import AuthGuard from "@/components/AuthGuard";
 import WordleGridParser from "@/components/WordleGridParser";
 import type { ParsedWordle } from "@/lib/wordle-parser";
 
+export const dynamic = "force-dynamic";
+
 export default function SubmitPage() {
   const [parsed, setParsed] = useState<ParsedWordle | null>(null);
   const [gridInput, setGridInput] = useState<string>("");

@@ -110,7 +110,7 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium text-gray-900">
-                    {submission.user_id.substring(0, 8)}...
+                    {submission.user?.email || submission.user_id.substring(0, 8) + "..."}
                   </p>
                   <p className="text-sm text-gray-500">
                     {submission.guesses}/6
