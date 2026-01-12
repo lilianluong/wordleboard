@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { getTodayWordleNumber } from "@/lib/wordle-date";
 
 interface Submission {
   id: string;
@@ -20,37 +21,21 @@ interface DailyStatsProps {
 
 export default function DailyStats({ wordleNumber }: DailyStatsProps) {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [availableWordles, setAvailableWordles] = useState<number[]>([]);
   const [loading, setLoading] = useState(true);
   const [targetWordle, setTargetWordle] = useState<number | null>(
     wordleNumber || null
   );
 
-  useEffect(() => {
-    fetchSubmissions();
-  }, [targetWordle]);
+  const fetchSubmissions = useCallback(async () => {
+    if (targetWordle === null) return;
 
-  const fetchSubmissions = async () => {
     setLoading(true);
 
     try {
-      // First, get all submissions to find the latest wordle number if not specified
-      let wordleToFetch = targetWordle;
-      
-      if (!wordleToFetch) {
-        const allResponse = await fetch("/api/submissions");
-        const allData = await allResponse.json();
-        if (allData.submissions && allData.submissions.length > 0) {
-          // Get the highest wordle number
-          wordleToFetch = Math.max(
-            ...allData.submissions.map((s: Submission) => s.wordle_number)
-          );
-        }
-      }
-
-      const url = wordleToFetch
-        ? `/api/submissions?wordle_number=${wordleToFetch}`
-        : "/api/submissions";
-      const response = await fetch(url);
+      const response = await fetch(
+        `/api/submissions?wordle_number=${targetWordle}`
+      );
       const data = await response.json();
 
       if (response.ok) {
@@ -70,9 +55,48 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
     }
 
     setLoading(false);
-  };
+  }, [targetWordle]);
 
-  if (loading) {
+  useEffect(() => {
+    const loadInitialData = async () => {
+      try {
+        const response = await fetch("/api/submissions");
+        const data = await response.json();
+
+        if (response.ok && data.submissions) {
+          // Get unique wordle numbers and sort descending (newest first)
+          const uniqueWordles = Array.from(
+            new Set(data.submissions.map((s: Submission) => s.wordle_number))
+          ).sort((a, b) => b - a) as number[];
+          
+          setAvailableWordles(uniqueWordles);
+
+          // Auto-select today's wordle or the latest available if not already set
+          if (!targetWordle && !wordleNumber) {
+            const todayWordle = getTodayWordleNumber();
+            const latestWordle = uniqueWordles[0] || todayWordle;
+            // Use today's wordle if available, otherwise use the latest
+            const wordleToSelect = uniqueWordles.includes(todayWordle)
+              ? todayWordle
+              : latestWordle;
+            setTargetWordle(wordleToSelect);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching available wordles:", error);
+      }
+    };
+
+    loadInitialData();
+  }, [targetWordle, wordleNumber]);
+
+  useEffect(() => {
+    if (targetWordle !== null) {
+      fetchSubmissions();
+    }
+  }, [targetWordle, fetchSubmissions]);
+
+  if (loading && submissions.length === 0) {
     return <div className="text-center py-8">Loading...</div>;
   }
 
@@ -85,15 +109,19 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
         <h2 className="text-xl font-semibold text-gray-900">
           Wordle #{currentWordle || "N/A"}
         </h2>
-        <input
-          type="number"
-          placeholder="Wordle #"
+        <select
           value={targetWordle || ""}
           onChange={(e) =>
             setTargetWordle(e.target.value ? parseInt(e.target.value) : null)
           }
-          className="rounded-md border border-gray-300 px-3 py-1 text-sm"
-        />
+          className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
+        >
+          {availableWordles.map((wordleNum) => (
+            <option key={wordleNum} value={wordleNum}>
+              Wordle #{wordleNum}
+            </option>
+          ))}
+        </select>
       </div>
 
       {userSubmissions.length === 0 ? (
