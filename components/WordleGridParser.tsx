@@ -23,7 +23,7 @@ export default function WordleGridParser({ onParse, onInputChange }: WordleGridP
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <div>
         <label
           htmlFor="wordle-grid"
@@ -31,8 +31,8 @@ export default function WordleGridParser({ onParse, onInputChange }: WordleGridP
             display: 'block',
             fontSize: '0.9375rem',
             fontWeight: '600',
-            color: 'var(--espresso)',
-            marginBottom: '0.625rem'
+            color: 'var(--slate-700)',
+            marginBottom: '0.5rem'
           }}
         >
           Paste your Wordle result
@@ -45,11 +45,11 @@ export default function WordleGridParser({ onParse, onInputChange }: WordleGridP
           style={{
             width: '100%',
             border: '1.5px solid var(--border)',
-            background: 'var(--cream)',
-            padding: '1rem',
+            background: 'var(--mist)',
+            padding: '0.875rem',
             fontFamily: 'ui-monospace, monospace',
             fontSize: '0.9375rem',
-            color: 'var(--espresso)',
+            color: 'var(--slate-700)',
             lineHeight: '1.5'
           }}
           rows={8}
@@ -58,25 +58,25 @@ export default function WordleGridParser({ onParse, onInputChange }: WordleGridP
 
       {parsed && (
         <div style={{
-          borderRadius: '14px',
+          borderRadius: '8px',
           background: 'var(--success-light)',
-          padding: '1.25rem',
+          padding: '1rem',
           border: '1px solid var(--success)'
         }}>
           <h3 style={{
-            fontSize: '0.9375rem',
+            fontSize: '0.875rem',
             fontWeight: '600',
             color: 'var(--success)',
-            marginBottom: '0.75rem'
+            marginBottom: '0.625rem'
           }}>
             Parsed successfully!
           </h3>
           <div style={{
-            fontSize: '0.9375rem',
+            fontSize: '0.875rem',
             color: 'var(--success)',
             display: 'flex',
             flexDirection: 'column',
-            gap: '0.375rem',
+            gap: '0.25rem',
             fontWeight: '500'
           }}>
             <p>Wordle #{parsed.wordleNumber}</p>
@@ -88,13 +88,13 @@ export default function WordleGridParser({ onParse, onInputChange }: WordleGridP
 
       {input && !parsed && (
         <div style={{
-          borderRadius: '14px',
+          borderRadius: '8px',
           background: 'var(--error-light)',
-          padding: '1.25rem',
+          padding: '1rem',
           border: '1px solid var(--error)'
         }}>
           <p style={{
-            fontSize: '0.9375rem',
+            fontSize: '0.875rem',
             color: 'var(--error)',
             fontWeight: '500'
           }}>

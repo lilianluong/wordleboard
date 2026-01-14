@@ -1,35 +1,40 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Karla:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Warm, cozy color palette */
-  --cream: #faf8f3;
-  --warm-white: #f5f1e8;
-  --sand: #e8dfc8;
-  --amber: #d4a574;
-  --honey: #c49060;
-  --chocolate: #8b6f47;
-  --espresso: #5a4a3a;
-  --deep-brown: #3d2f24;
+  /* Soft, calm color palette */
+  --cloud: #f7f8fa;
+  --mist: #edf0f4;
+  --slate-50: #e3e8ef;
+  --slate-100: #cdd5e0;
+  --slate-200: #a8b4c5;
+  --slate-300: #7d8fa8;
+  --slate-400: #5f738c;
+  --slate-500: #4a5568;
+  --slate-600: #3b4556;
+  --slate-700: #2d3748;
 
-  /* Accent colors */
-  --sage: #a8b5a0;
-  --moss: #7a8c6f;
-  --terracotta: #c47b5c;
+  /* Soft accent colors */
+  --blue-soft: #6b9bd1;
+  --blue-light: #e3f0fa;
+  --mint: #6fb5a0;
+  --mint-light: #e3f3ee;
+  --coral: #e88a7d;
+  --coral-light: #fcedeb;
 
-  /* Success/error with warmth */
-  --success: #8ba888;
-  --success-light: #e8f0e7;
-  --error: #c6746b;
-  --error-light: #f5e5e3;
+  /* Success/error soft tones */
+  --success: #6fb093;
+  --success-light: #e7f4ee;
+  --error: #d17a6f;
+  --error-light: #fceeed;
 
   /* Semantic tokens */
-  --background: var(--cream);
-  --surface: var(--warm-white);
-  --foreground: var(--espresso);
-  --foreground-secondary: var(--chocolate);
-  --border: rgba(139, 111, 71, 0.15);
-  --shadow: rgba(93, 74, 58, 0.08);
+  --background: var(--cloud);
+  --surface: white;
+  --foreground: var(--slate-700);
+  --foreground-secondary: var(--slate-500);
+  --border: rgba(173, 189, 210, 0.25);
+  --shadow: rgba(45, 55, 72, 0.05);
 }
 
 @theme inline {
@@ -46,19 +51,20 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Karla', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 400;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Beautiful typography scale */
+/* Clean typography scale */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-weight: 400;
-  line-height: 1.2;
-  color: var(--deep-brown);
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--slate-700);
+  letter-spacing: -0.02em;
 }
 
 /* Smooth transitions everywhere */
@@ -66,12 +72,12 @@ h1, h2, h3, h4, h5, h6 {
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Cozy button styles */
+/* Button styles */
 button, .button {
-  font-family: 'Karla', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
-  letter-spacing: 0.01em;
-  border-radius: 12px;
+  letter-spacing: -0.01em;
+  border-radius: 10px;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -81,16 +87,16 @@ button:active:not(:disabled) {
   transform: translateY(1px);
 }
 
-/* Soft input styles */
+/* Input styles */
 input, select, textarea {
-  font-family: 'Karla', sans-serif;
-  border-radius: 10px;
+  font-family: 'Inter', sans-serif;
+  border-radius: 8px;
   transition: all 0.2s ease;
 }
 
 input:focus, select:focus, textarea:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.15);
+  box-shadow: 0 0 0 3px rgba(107, 155, 209, 0.12);
 }
 
 /* Smooth page load animation */
@@ -115,14 +121,14 @@ main {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--warm-white);
+  background: var(--mist);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--sand);
+  background: var(--slate-100);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--amber);
+  background: var(--slate-200);
 }

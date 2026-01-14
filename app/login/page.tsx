@@ -44,28 +44,27 @@ export default function LoginPage() {
       <div
         style={{
           width: '100%',
-          maxWidth: '28rem',
-          borderRadius: '20px',
+          maxWidth: '26rem',
+          borderRadius: '12px',
           background: 'var(--surface)',
-          padding: '3rem',
-          boxShadow: '0 8px 24px var(--shadow)',
+          padding: '2.5rem',
+          boxShadow: '0 4px 16px var(--shadow)',
           border: '1px solid var(--border)'
         }}
       >
-        <div style={{ marginBottom: '2.5rem' }}>
+        <div style={{ marginBottom: '2rem' }}>
           <h2 style={{
             textAlign: 'center',
-            fontSize: '3rem',
-            fontFamily: 'DM Serif Display, Georgia, serif',
-            color: 'var(--deep-brown)',
-            marginBottom: '0.75rem'
+            fontSize: '2.25rem',
+            fontWeight: '600',
+            marginBottom: '0.5rem'
           }}>
             Wordle Board
           </h2>
           <p style={{
             textAlign: 'center',
-            fontSize: '1.0625rem',
-            color: 'var(--chocolate)'
+            fontSize: '1rem',
+            color: 'var(--slate-500)'
           }}>
             Sign in with your email
           </p>
@@ -78,8 +77,8 @@ export default function LoginPage() {
                 display: 'block',
                 fontSize: '0.9375rem',
                 fontWeight: '600',
-                color: 'var(--espresso)',
-                marginBottom: '0.625rem'
+                color: 'var(--slate-700)',
+                marginBottom: '0.5rem'
               }}
             >
               Email address
@@ -96,10 +95,10 @@ export default function LoginPage() {
                 display: 'block',
                 width: '100%',
                 border: '1.5px solid var(--border)',
-                background: 'var(--cream)',
-                padding: '0.875rem 1rem',
+                background: 'var(--mist)',
+                padding: '0.75rem 1rem',
                 fontSize: '1rem',
-                color: 'var(--espresso)'
+                color: 'var(--slate-700)'
               }}
               placeholder="you@example.com"
             />
@@ -126,28 +125,28 @@ export default function LoginPage() {
               disabled={loading}
               style={{
                 width: '100%',
-                background: loading ? 'var(--sand)' : 'var(--honey)',
+                background: loading ? 'var(--slate-200)' : 'var(--blue-soft)',
                 color: 'white',
-                padding: '1rem',
-                fontSize: '1.0625rem',
+                padding: '0.875rem',
+                fontSize: '1rem',
                 fontWeight: '600',
                 cursor: loading ? 'not-allowed' : 'pointer',
                 opacity: loading ? 0.6 : 1,
-                boxShadow: loading ? 'none' : '0 4px 12px rgba(196, 144, 96, 0.3)',
+                boxShadow: loading ? 'none' : '0 2px 6px rgba(107, 155, 209, 0.25)',
                 border: 'none'
               }}
               onMouseEnter={(e) => {
                 if (!loading) {
-                  e.currentTarget.style.background = 'var(--amber)';
+                  e.currentTarget.style.background = 'var(--mint)';
                   e.currentTarget.style.transform = 'translateY(-1px)';
-                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(196, 144, 96, 0.35)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(107, 155, 209, 0.3)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (!loading) {
-                  e.currentTarget.style.background = 'var(--honey)';
+                  e.currentTarget.style.background = 'var(--blue-soft)';
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(196, 144, 96, 0.3)';
+                  e.currentTarget.style.boxShadow = '0 2px 6px rgba(107, 155, 209, 0.25)';
                 }
               }}
             >

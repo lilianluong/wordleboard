@@ -110,8 +110,8 @@ export default function UserStats({ userId }: UserStatsProps) {
       <div style={{
         textAlign: 'center',
         padding: '3rem',
-        color: 'var(--chocolate)',
-        fontSize: '1.0625rem'
+        color: 'var(--slate-400)',
+        fontSize: '1rem'
       }}>
         Loading...
       </div>
@@ -127,8 +127,8 @@ export default function UserStats({ userId }: UserStatsProps) {
             display: 'block',
             fontSize: '0.9375rem',
             fontWeight: '600',
-            color: 'var(--espresso)',
-            marginBottom: '0.625rem'
+            color: 'var(--slate-700)',
+            marginBottom: '0.5rem'
           }}
         >
           Select User
@@ -143,11 +143,11 @@ export default function UserStats({ userId }: UserStatsProps) {
             background: 'var(--surface)',
             padding: '0.75rem 2.5rem 0.75rem 1rem',
             fontSize: '1rem',
-            color: 'var(--espresso)',
+            color: 'var(--slate-600)',
             fontWeight: '500',
             cursor: 'pointer',
             appearance: 'none',
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%238b6f47' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%235f738c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'right 0.75rem center'
           }}
@@ -162,93 +162,93 @@ export default function UserStats({ userId }: UserStatsProps) {
 
       {submissions.length === 0 ? (
         <div style={{
-          borderRadius: '16px',
-          background: 'var(--warm-white)',
+          borderRadius: '12px',
+          background: 'var(--mist)',
           border: '1px solid var(--border)',
           padding: '3rem',
           textAlign: 'center',
-          color: 'var(--chocolate)',
-          fontSize: '1.0625rem'
+          color: 'var(--slate-400)',
+          fontSize: '1rem'
         }}>
           No submissions found for this user
         </div>
       ) : (
         <div style={{
           display: 'grid',
-          gap: '1.25rem',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))'
+          gap: '1rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))'
         }}>
           <div style={{
-            borderRadius: '16px',
+            borderRadius: '12px',
             border: '1px solid var(--border)',
             background: 'var(--surface)',
-            padding: '1.5rem',
-            boxShadow: '0 2px 8px var(--shadow)'
+            padding: '1.25rem',
+            boxShadow: '0 1px 3px var(--shadow)'
           }}>
-            <p style={{ fontSize: '0.875rem', color: 'var(--chocolate)', marginBottom: '0.5rem' }}>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--slate-500)', marginBottom: '0.5rem', fontWeight: '500' }}>
               Total Games
             </p>
             <p style={{
-              fontSize: '2.25rem',
-              fontFamily: 'DM Serif Display, Georgia, serif',
-              color: 'var(--deep-brown)'
+              fontSize: '2rem',
+              fontWeight: '600',
+              color: 'var(--slate-700)'
             }}>
               {stats.totalGames}
             </p>
           </div>
           <div style={{
-            borderRadius: '16px',
+            borderRadius: '12px',
             border: '1px solid var(--border)',
             background: 'var(--surface)',
-            padding: '1.5rem',
-            boxShadow: '0 2px 8px var(--shadow)'
+            padding: '1.25rem',
+            boxShadow: '0 1px 3px var(--shadow)'
           }}>
-            <p style={{ fontSize: '0.875rem', color: 'var(--chocolate)', marginBottom: '0.5rem' }}>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--slate-500)', marginBottom: '0.5rem', fontWeight: '500' }}>
               Win Rate
             </p>
             <p style={{
-              fontSize: '2.25rem',
-              fontFamily: 'DM Serif Display, Georgia, serif',
-              color: 'var(--deep-brown)'
+              fontSize: '2rem',
+              fontWeight: '600',
+              color: 'var(--slate-700)'
             }}>
               {stats.winRate}%
             </p>
-            <p style={{ fontSize: '0.8125rem', color: 'var(--chocolate)', marginTop: '0.375rem' }}>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--slate-400)', marginTop: '0.25rem' }}>
               {stats.wins}W / {stats.losses}L
             </p>
           </div>
           <div style={{
-            borderRadius: '16px',
+            borderRadius: '12px',
             border: '1px solid var(--border)',
             background: 'var(--surface)',
-            padding: '1.5rem',
-            boxShadow: '0 2px 8px var(--shadow)'
+            padding: '1.25rem',
+            boxShadow: '0 1px 3px var(--shadow)'
           }}>
-            <p style={{ fontSize: '0.875rem', color: 'var(--chocolate)', marginBottom: '0.5rem' }}>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--slate-500)', marginBottom: '0.5rem', fontWeight: '500' }}>
               Avg Guesses
             </p>
             <p style={{
-              fontSize: '2.25rem',
-              fontFamily: 'DM Serif Display, Georgia, serif',
-              color: 'var(--deep-brown)'
+              fontSize: '2rem',
+              fontWeight: '600',
+              color: 'var(--slate-700)'
             }}>
               {stats.averageGuesses}
             </p>
           </div>
           <div style={{
-            borderRadius: '16px',
+            borderRadius: '12px',
             border: '1px solid var(--border)',
             background: 'var(--surface)',
-            padding: '1.5rem',
-            boxShadow: '0 2px 8px var(--shadow)'
+            padding: '1.25rem',
+            boxShadow: '0 1px 3px var(--shadow)'
           }}>
-            <p style={{ fontSize: '0.875rem', color: 'var(--chocolate)', marginBottom: '0.5rem' }}>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--slate-500)', marginBottom: '0.5rem', fontWeight: '500' }}>
               Best / Worst
             </p>
             <p style={{
-              fontSize: '2.25rem',
-              fontFamily: 'DM Serif Display, Georgia, serif',
-              color: 'var(--deep-brown)'
+              fontSize: '2rem',
+              fontWeight: '600',
+              color: 'var(--slate-700)'
             }}>
               {stats.bestGuesses !== null ? `${stats.bestGuesses} / ${stats.worstGuesses}` : "N/A"}
             </p>
@@ -258,21 +258,21 @@ export default function UserStats({ userId }: UserStatsProps) {
 
       {submissions.length > 0 && (
         <div style={{
-          borderRadius: '16px',
+          borderRadius: '12px',
           border: '1px solid var(--border)',
           background: 'var(--surface)',
-          padding: '1.75rem',
-          boxShadow: '0 2px 8px var(--shadow)'
+          padding: '1.5rem',
+          boxShadow: '0 1px 3px var(--shadow)'
         }}>
           <h3 style={{
-            fontFamily: 'DM Serif Display, Georgia, serif',
-            fontSize: '1.375rem',
-            color: 'var(--deep-brown)',
-            marginBottom: '1.25rem'
+            fontSize: '1.25rem',
+            fontWeight: '600',
+            color: 'var(--slate-700)',
+            marginBottom: '1rem'
           }}>
             Recent Games
           </h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
             {submissions.slice(0, 10).map((sub, idx) => (
               <div
                 key={idx}
@@ -281,25 +281,25 @@ export default function UserStats({ userId }: UserStatsProps) {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   borderBottom: idx < Math.min(9, submissions.length - 1) ? '1px solid var(--border)' : 'none',
-                  paddingBottom: '0.75rem'
+                  paddingBottom: '0.625rem'
                 }}
               >
-                <span style={{ fontSize: '0.9375rem', color: 'var(--chocolate)' }}>
+                <span style={{ fontSize: '0.9375rem', color: 'var(--slate-500)' }}>
                   Wordle #{sub.wordle_number}
                 </span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <span style={{
                     fontSize: '0.9375rem',
                     fontWeight: '600',
-                    color: 'var(--espresso)'
+                    color: 'var(--slate-700)'
                   }}>
                     {sub.guesses}/6
                   </span>
                   <span
                     style={{
-                      borderRadius: '12px',
-                      padding: '0.25rem 0.625rem',
-                      fontSize: '0.8125rem',
+                      borderRadius: '8px',
+                      padding: '0.25rem 0.5rem',
+                      fontSize: '0.75rem',
                       fontWeight: '600',
                       background: sub.won ? 'var(--success-light)' : 'var(--error-light)',
                       color: sub.won ? 'var(--success)' : 'var(--error)'

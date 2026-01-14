@@ -101,8 +101,8 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
       <div style={{
         textAlign: 'center',
         padding: '3rem',
-        color: 'var(--chocolate)',
-        fontSize: '1.0625rem'
+        color: 'var(--slate-400)',
+        fontSize: '1rem'
       }}>
         Loading...
       </div>
@@ -121,11 +121,7 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
         flexWrap: 'wrap',
         gap: '1rem'
       }}>
-        <h2 style={{
-          fontSize: '1.75rem',
-          fontFamily: 'DM Serif Display, Georgia, serif',
-          color: 'var(--deep-brown)'
-        }}>
+        <h2 style={{ fontSize: '1.625rem' }}>
           Wordle #{currentWordle || "N/A"}
         </h2>
         <select
@@ -136,13 +132,13 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
           style={{
             border: '1.5px solid var(--border)',
             background: 'var(--surface)',
-            padding: '0.625rem 2.5rem 0.625rem 1rem',
+            padding: '0.5rem 2.5rem 0.5rem 0.875rem',
             fontSize: '0.9375rem',
-            color: 'var(--espresso)',
+            color: 'var(--slate-600)',
             fontWeight: '500',
             cursor: 'pointer',
             appearance: 'none',
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%238b6f47' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%235f738c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'right 0.75rem center'
           }}
@@ -157,69 +153,73 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
 
       {userSubmissions.length === 0 ? (
         <div style={{
-          borderRadius: '16px',
-          background: 'var(--warm-white)',
+          borderRadius: '12px',
+          background: 'var(--mist)',
           border: '1px solid var(--border)',
           padding: '3rem',
           textAlign: 'center',
-          color: 'var(--chocolate)',
-          fontSize: '1.0625rem'
+          color: 'var(--slate-400)',
+          fontSize: '1rem'
         }}>
           No submissions yet for this Wordle
         </div>
       ) : (
         <div style={{
           display: 'grid',
-          gap: '1.25rem',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))'
+          gap: '1rem',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))'
         }}>
           {userSubmissions.map((submission) => (
             <div
               key={submission.id}
               style={{
-                borderRadius: '16px',
+                borderRadius: '12px',
                 border: '1px solid var(--border)',
                 background: 'var(--surface)',
-                padding: '1.5rem',
-                boxShadow: '0 2px 8px var(--shadow)',
+                padding: '1.25rem',
+                boxShadow: '0 1px 3px var(--shadow)',
                 transition: 'all 0.2s ease'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 4px 16px rgba(93, 74, 58, 0.12)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(45, 55, 72, 0.08)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 2px 8px var(--shadow)';
+                e.currentTarget.style.boxShadow = '0 1px 3px var(--shadow)';
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <div>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem' }}>
+                <div style={{ flex: '1', minWidth: '0' }}>
                   <p style={{
                     fontWeight: '600',
-                    color: 'var(--espresso)',
-                    fontSize: '1.0625rem',
-                    marginBottom: '0.375rem'
+                    color: 'var(--slate-700)',
+                    fontSize: '0.9375rem',
+                    marginBottom: '0.25rem',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap'
                   }}>
                     {submission.user?.email || submission.user_id.substring(0, 8) + "..."}
                   </p>
                   <p style={{
-                    fontSize: '1.5rem',
-                    fontFamily: 'DM Serif Display, Georgia, serif',
-                    color: 'var(--honey)',
-                    fontWeight: '400'
+                    fontSize: '1.625rem',
+                    fontWeight: '600',
+                    color: 'var(--blue-soft)',
+                    lineHeight: '1'
                   }}>
                     {submission.guesses}/6
                   </p>
                 </div>
                 <div
                   style={{
-                    borderRadius: '20px',
-                    padding: '0.5rem 1rem',
-                    fontSize: '0.875rem',
+                    borderRadius: '8px',
+                    padding: '0.375rem 0.75rem',
+                    fontSize: '0.8125rem',
                     fontWeight: '600',
                     background: submission.won ? 'var(--success-light)' : 'var(--error-light)',
-                    color: submission.won ? 'var(--success)' : 'var(--error)'
+                    color: submission.won ? 'var(--success)' : 'var(--error)',
+                    flexShrink: '0'
                   }}
                 >
                   {submission.won ? "Won" : "Lost"}

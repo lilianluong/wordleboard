@@ -42,10 +42,11 @@ export default function Home() {
               <Link
                 href="/"
                 style={{
-                  fontSize: '1.5rem',
-                  fontFamily: 'DM Serif Display, Georgia, serif',
-                  color: 'var(--deep-brown)',
-                  textDecoration: 'none'
+                  fontSize: '1.375rem',
+                  fontWeight: '600',
+                  color: 'var(--slate-700)',
+                  textDecoration: 'none',
+                  letterSpacing: '-0.01em'
                 }}
               >
                 Wordle Board
@@ -54,31 +55,37 @@ export default function Home() {
                 <Link
                   href="/submit"
                   style={{
-                    background: 'var(--honey)',
+                    background: 'var(--blue-soft)',
                     color: 'white',
-                    padding: '0.625rem 1.5rem',
-                    borderRadius: '12px',
+                    padding: '0.5rem 1.25rem',
+                    borderRadius: '8px',
                     textDecoration: 'none',
                     fontSize: '0.9375rem',
                     fontWeight: '600',
-                    boxShadow: '0 2px 8px rgba(196, 144, 96, 0.25)',
+                    boxShadow: '0 1px 3px rgba(107, 155, 209, 0.2)',
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = 'var(--amber)'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = 'var(--honey)'}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'var(--mint)';
+                    e.currentTarget.style.boxShadow = '0 2px 6px rgba(107, 155, 209, 0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'var(--blue-soft)';
+                    e.currentTarget.style.boxShadow = '0 1px 3px rgba(107, 155, 209, 0.2)';
+                  }}
                 >
                   Submit
                 </Link>
                 <Link
                   href="/stats"
                   style={{
-                    color: 'var(--chocolate)',
+                    color: 'var(--slate-500)',
                     textDecoration: 'none',
                     fontSize: '0.9375rem',
                     fontWeight: '500',
-                    padding: '0.625rem 1rem'
+                    padding: '0.5rem 1rem'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--espresso)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--chocolate)'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--slate-700)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--slate-500)'}
                 >
                   Stats
                 </Link>
@@ -86,15 +93,15 @@ export default function Home() {
                   <button
                     onClick={handleSignOut}
                     style={{
-                      color: 'var(--chocolate)',
+                      color: 'var(--slate-500)',
                       fontSize: '0.875rem',
                       fontWeight: '500',
                       background: 'transparent',
                       border: 'none',
-                      padding: '0.625rem 1rem'
+                      padding: '0.5rem 1rem'
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--espresso)'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--chocolate)'}
+                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--slate-700)'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--slate-500)'}
                   >
                     Sign Out
                   </button>
@@ -107,16 +114,14 @@ export default function Home() {
         <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="mb-10">
             <h1 style={{
-              fontSize: '2.75rem',
-              marginBottom: '0.75rem',
-              fontFamily: 'DM Serif Display, Georgia, serif',
-              color: 'var(--deep-brown)'
+              fontSize: '2.5rem',
+              marginBottom: '0.5rem'
             }}>
               Dashboard
             </h1>
             <p style={{
-              fontSize: '1.125rem',
-              color: 'var(--chocolate)',
+              fontSize: '1.0625rem',
+              color: 'var(--slate-500)',
               fontWeight: '400'
             }}>
               See how everyone did on today's Wordle

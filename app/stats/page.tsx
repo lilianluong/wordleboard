@@ -20,10 +20,11 @@ export default function StatsPage() {
               <Link
                 href="/"
                 style={{
-                  fontSize: '1.5rem',
-                  fontFamily: 'DM Serif Display, Georgia, serif',
-                  color: 'var(--deep-brown)',
-                  textDecoration: 'none'
+                  fontSize: '1.375rem',
+                  fontWeight: '600',
+                  color: 'var(--slate-700)',
+                  textDecoration: 'none',
+                  letterSpacing: '-0.01em'
                 }}
               >
                 Wordle Board
@@ -32,28 +33,28 @@ export default function StatsPage() {
                 <Link
                   href="/"
                   style={{
-                    color: 'var(--chocolate)',
+                    color: 'var(--slate-500)',
                     textDecoration: 'none',
                     fontSize: '0.9375rem',
                     fontWeight: '500',
-                    padding: '0.625rem 1rem'
+                    padding: '0.5rem 1rem'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--espresso)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--chocolate)'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--slate-700)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--slate-500)'}
                 >
                   Dashboard
                 </Link>
                 <Link
                   href="/submit"
                   style={{
-                    color: 'var(--chocolate)',
+                    color: 'var(--slate-500)',
                     textDecoration: 'none',
                     fontSize: '0.9375rem',
                     fontWeight: '500',
-                    padding: '0.625rem 1rem'
+                    padding: '0.5rem 1rem'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--espresso)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--chocolate)'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--slate-700)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--slate-500)'}
                 >
                   Submit
                 </Link>
@@ -65,16 +66,14 @@ export default function StatsPage() {
         <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="mb-10">
             <h1 style={{
-              fontSize: '2.75rem',
-              marginBottom: '0.75rem',
-              fontFamily: 'DM Serif Display, Georgia, serif',
-              color: 'var(--deep-brown)'
+              fontSize: '2.5rem',
+              marginBottom: '0.5rem'
             }}>
               User Statistics
             </h1>
             <p style={{
-              fontSize: '1.125rem',
-              color: 'var(--chocolate)',
+              fontSize: '1.0625rem',
+              color: 'var(--slate-500)',
               fontWeight: '400'
             }}>
               View detailed stats for each player

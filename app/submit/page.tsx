@@ -82,10 +82,11 @@ export default function SubmitPage() {
               <Link
                 href="/"
                 style={{
-                  fontSize: '1.5rem',
-                  fontFamily: 'DM Serif Display, Georgia, serif',
-                  color: 'var(--deep-brown)',
-                  textDecoration: 'none'
+                  fontSize: '1.375rem',
+                  fontWeight: '600',
+                  color: 'var(--slate-700)',
+                  textDecoration: 'none',
+                  letterSpacing: '-0.01em'
                 }}
               >
                 Wordle Board
@@ -94,28 +95,28 @@ export default function SubmitPage() {
                 <Link
                   href="/"
                   style={{
-                    color: 'var(--chocolate)',
+                    color: 'var(--slate-500)',
                     textDecoration: 'none',
                     fontSize: '0.9375rem',
                     fontWeight: '500',
-                    padding: '0.625rem 1rem'
+                    padding: '0.5rem 1rem'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--espresso)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--chocolate)'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--slate-700)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--slate-500)'}
                 >
                   Dashboard
                 </Link>
                 <Link
                   href="/stats"
                   style={{
-                    color: 'var(--chocolate)',
+                    color: 'var(--slate-500)',
                     textDecoration: 'none',
                     fontSize: '0.9375rem',
                     fontWeight: '500',
-                    padding: '0.625rem 1rem'
+                    padding: '0.5rem 1rem'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--espresso)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--chocolate)'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--slate-700)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--slate-500)'}
                 >
                   Stats
                 </Link>
@@ -126,17 +127,15 @@ export default function SubmitPage() {
 
         <main className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
           <div style={{
-            borderRadius: '20px',
+            borderRadius: '12px',
             background: 'var(--surface)',
-            padding: '2.5rem',
-            boxShadow: '0 4px 16px var(--shadow)',
+            padding: '2rem',
+            boxShadow: '0 2px 8px var(--shadow)',
             border: '1px solid var(--border)'
           }}>
             <h1 style={{
-              fontSize: '2.25rem',
-              fontFamily: 'DM Serif Display, Georgia, serif',
-              color: 'var(--deep-brown)',
-              marginBottom: '2rem'
+              fontSize: '2rem',
+              marginBottom: '1.5rem'
             }}>
               Submit Wordle Result
             </h1>
@@ -146,9 +145,9 @@ export default function SubmitPage() {
             {message && (
               <div
                 style={{
-                  marginTop: '1.25rem',
-                  padding: '1.25rem',
-                  borderRadius: '12px',
+                  marginTop: '1rem',
+                  padding: '1rem',
+                  borderRadius: '8px',
                   background: message.type === "success" ? 'var(--success-light)' : 'var(--error-light)',
                   color: message.type === "success" ? 'var(--success)' : 'var(--error)',
                   fontWeight: '500',
@@ -159,34 +158,34 @@ export default function SubmitPage() {
               </div>
             )}
 
-            <div style={{ marginTop: '2rem' }}>
+            <div style={{ marginTop: '1.5rem' }}>
               <button
                 onClick={handleSubmit}
                 disabled={!parsed || loading}
                 style={{
                   width: '100%',
-                  background: (!parsed || loading) ? 'var(--sand)' : 'var(--honey)',
+                  background: (!parsed || loading) ? 'var(--slate-200)' : 'var(--blue-soft)',
                   color: 'white',
-                  padding: '1rem',
-                  fontSize: '1.0625rem',
+                  padding: '0.875rem',
+                  fontSize: '1rem',
                   fontWeight: '600',
                   cursor: (!parsed || loading) ? 'not-allowed' : 'pointer',
                   opacity: (!parsed || loading) ? 0.6 : 1,
-                  boxShadow: (!parsed || loading) ? 'none' : '0 4px 12px rgba(196, 144, 96, 0.3)',
+                  boxShadow: (!parsed || loading) ? 'none' : '0 2px 6px rgba(107, 155, 209, 0.25)',
                   border: 'none'
                 }}
                 onMouseEnter={(e) => {
                   if (!(!parsed || loading)) {
-                    e.currentTarget.style.background = 'var(--amber)';
+                    e.currentTarget.style.background = 'var(--mint)';
                     e.currentTarget.style.transform = 'translateY(-1px)';
-                    e.currentTarget.style.boxShadow = '0 6px 16px rgba(196, 144, 96, 0.35)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(107, 155, 209, 0.3)';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!(!parsed || loading)) {
-                    e.currentTarget.style.background = 'var(--honey)';
+                    e.currentTarget.style.background = 'var(--blue-soft)';
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(196, 144, 96, 0.3)';
+                    e.currentTarget.style.boxShadow = '0 2px 6px rgba(107, 155, 209, 0.25)';
                   }
                 }}
               >
