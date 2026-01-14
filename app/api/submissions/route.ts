@@ -263,8 +263,6 @@ async function sendNotificationsAsync(
     const payload = {
       title: "New Wordle Submission!",
       body: `${username} completed Wordle #${parsed.wordleNumber} in ${scoreText}`,
-      icon: "/icons/icon-192x192.png",
-      badge: "/icons/icon-96x96.png",
       url: "/",
     };
 
