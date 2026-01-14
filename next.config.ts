@@ -18,6 +18,11 @@ const pwa = withPWA({
   skipWaiting: true,
   disable: process.env.NODE_ENV === "development",
   buildExcludes: [/middleware-manifest\.json$/],
+  // Import custom push notification handlers
+  scope: '/',
+  sw: 'sw.js',
+  // Additional configuration for push notifications
+  additionalManifestEntries: [],
 });
 
 export default pwa(nextConfig);

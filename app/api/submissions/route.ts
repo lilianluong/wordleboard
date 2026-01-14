@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { parseWordleGrid } from "@/lib/wordle-parser";
 import { generateUniqueUsername } from "@/lib/username-utils";
+import { sendPushNotifications } from "@/lib/push-sender";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -102,6 +103,11 @@ export async function POST(request: Request) {
         );
       }
 
+      // Send push notifications (non-blocking).
+      sendNotificationsAsync(supabase, user.id, parsed).catch((err) =>
+        console.error("Notification error:", err)
+      );
+
       return NextResponse.json({ message: "Submission updated", updated: true });
     }
 
@@ -122,6 +128,11 @@ export async function POST(request: Request) {
         { status: 500 }
       );
     }
+
+    // Send push notifications (non-blocking).
+    sendNotificationsAsync(supabase, user.id, parsed).catch((err) =>
+      console.error("Notification error:", err)
+    );
 
     return NextResponse.json({ message: "Submission created", updated: false });
   } catch (error) {
@@ -210,5 +221,62 @@ export async function GET(request: Request) {
       { error: "Internal server error" },
       { status: 500 }
     );
+  }
+}
+
+/**
+ * Send push notifications to all users except the submitter.
+ * Runs asynchronously and doesn't block the submission response.
+ */
+async function sendNotificationsAsync(
+  supabase: any,
+  submitterId: string,
+  parsed: any
+) {
+  try {
+    // Setup.
+    // Fetch submitter username.
+    const { data: profile } = await supabase
+      .from("user_profiles")
+      .select("username")
+      .eq("user_id", submitterId)
+      .single();
+
+    const username = profile?.username || "Someone";
+
+    // Fetch all subscriptions except submitter.
+    const { data: subscriptions } = await supabase
+      .from("push_subscriptions")
+      .select("*")
+      .neq("user_id", submitterId);
+
+    if (!subscriptions || subscriptions.length === 0) {
+      return;
+    }
+
+    // Act.
+    // Build notification payload.
+    const scoreText = parsed.won
+      ? `${parsed.guesses}/6`
+      : "X/6";
+
+    const payload = {
+      title: "New Wordle Submission!",
+      body: `${username} completed Wordle #${parsed.wordleNumber} in ${scoreText}`,
+      icon: "/icons/icon-192x192.png",
+      badge: "/icons/icon-96x96.png",
+      url: "/",
+    };
+
+    // Send notifications.
+    const { expired } = await sendPushNotifications(subscriptions, payload);
+
+    // Assert.
+    // Cleanup expired subscriptions.
+    if (expired.length > 0) {
+      await supabase.from("push_subscriptions").delete().in("id", expired);
+    }
+  } catch (error) {
+    console.error("Error sending notifications:", error);
   }
 }

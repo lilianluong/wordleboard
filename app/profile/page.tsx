@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import AuthGuard from "@/components/AuthGuard";
 import UserAvatar from "@/components/UserAvatar";
+import NotificationSettings from "@/components/NotificationSettings";
 import { validateUsername } from "@/lib/username-utils";
 
 export const dynamic = "force-dynamic";
@@ -340,6 +341,9 @@ export default function ProfilePage() {
                 3-20 characters. Letters, numbers, and underscores only.
               </p>
             </div>
+
+            {/* Notification Settings */}
+            <NotificationSettings />
 
             {/* Error/Success Messages */}
             {error && (
