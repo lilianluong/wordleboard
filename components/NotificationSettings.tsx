@@ -48,13 +48,18 @@ export default function NotificationSettings() {
         setSubscribed(false);
       } else {
         // Act.
-        // Subscribe.
-        const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
-        if (!vapidPublicKey) {
+        // Subscribe - fetch VAPID public key from server.
+        const keyResponse = await fetch("/api/notifications/vapid-public-key");
+        if (!keyResponse.ok) {
+          throw new Error("Failed to fetch VAPID public key");
+        }
+        const { publicKey } = await keyResponse.json();
+
+        if (!publicKey) {
           throw new Error("VAPID public key not configured");
         }
 
-        await subscribeToPush(vapidPublicKey);
+        await subscribeToPush(publicKey);
         setSubscribed(true);
         setPermission("granted");
       }
