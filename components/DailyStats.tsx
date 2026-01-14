@@ -110,7 +110,21 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
   }
 
   const currentWordle = targetWordle || submissions[0]?.wordle_number;
-  const userSubmissions = submissions; // Already grouped in fetchSubmissions
+  // Sort submissions: wins first (by fewest guesses, then oldest), losses last.
+  const userSubmissions = submissions.sort((a, b) => {
+    // Losses always go to the bottom.
+    if (a.won !== b.won) {
+      return a.won ? -1 : 1;
+    }
+
+    // Both won or both lost - sort by guesses (fewest first).
+    if (a.guesses !== b.guesses) {
+      return a.guesses - b.guesses;
+    }
+
+    // Same guesses - sort by oldest submission first.
+    return new Date(a.submitted_at).getTime() - new Date(b.submitted_at).getTime();
+  });
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
