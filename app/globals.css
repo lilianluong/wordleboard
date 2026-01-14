@@ -1,8 +1,35 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Karla:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Warm, cozy color palette */
+  --cream: #faf8f3;
+  --warm-white: #f5f1e8;
+  --sand: #e8dfc8;
+  --amber: #d4a574;
+  --honey: #c49060;
+  --chocolate: #8b6f47;
+  --espresso: #5a4a3a;
+  --deep-brown: #3d2f24;
+
+  /* Accent colors */
+  --sage: #a8b5a0;
+  --moss: #7a8c6f;
+  --terracotta: #c47b5c;
+
+  /* Success/error with warmth */
+  --success: #8ba888;
+  --success-light: #e8f0e7;
+  --error: #c6746b;
+  --error-light: #f5e5e3;
+
+  /* Semantic tokens */
+  --background: var(--cream);
+  --surface: var(--warm-white);
+  --foreground: var(--espresso);
+  --foreground-secondary: var(--chocolate);
+  --border: rgba(139, 111, 71, 0.15);
+  --shadow: rgba(93, 74, 58, 0.08);
 }
 
 @theme inline {
@@ -12,15 +39,90 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Karla', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Beautiful typography scale */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--deep-brown);
+}
+
+/* Smooth transitions everywhere */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Cozy button styles */
+button, .button {
+  font-family: 'Karla', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border-radius: 12px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* Soft input styles */
+input, select, textarea {
+  font-family: 'Karla', sans-serif;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.15);
+}
+
+/* Smooth page load animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--warm-white);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sand);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--amber);
 }

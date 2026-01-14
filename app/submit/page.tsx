@@ -71,23 +71,51 @@ export default function SubmitPage() {
 
   return (
     <AuthGuard>
-      <div className="min-h-screen bg-gray-50">
-        <nav className="bg-white shadow-sm">
+      <div className="min-h-screen" style={{ background: 'var(--background)' }}>
+        <nav style={{
+          background: 'var(--surface)',
+          borderBottom: '1px solid var(--border)',
+          boxShadow: '0 1px 3px var(--shadow)'
+        }}>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex h-16 items-center justify-between">
-              <Link href="/" className="text-xl font-bold text-gray-900">
+            <div className="flex h-20 items-center justify-between">
+              <Link
+                href="/"
+                style={{
+                  fontSize: '1.5rem',
+                  fontFamily: 'DM Serif Display, Georgia, serif',
+                  color: 'var(--deep-brown)',
+                  textDecoration: 'none'
+                }}
+              >
                 Wordle Board
               </Link>
-              <div className="flex gap-4">
+              <div className="flex gap-3">
                 <Link
                   href="/"
-                  className="text-gray-600 hover:text-gray-900"
+                  style={{
+                    color: 'var(--chocolate)',
+                    textDecoration: 'none',
+                    fontSize: '0.9375rem',
+                    fontWeight: '500',
+                    padding: '0.625rem 1rem'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--espresso)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--chocolate)'}
                 >
                   Dashboard
                 </Link>
                 <Link
                   href="/stats"
-                  className="text-gray-600 hover:text-gray-900"
+                  style={{
+                    color: 'var(--chocolate)',
+                    textDecoration: 'none',
+                    fontSize: '0.9375rem',
+                    fontWeight: '500',
+                    padding: '0.625rem 1rem'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--espresso)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--chocolate)'}
                 >
                   Stats
                 </Link>
@@ -96,9 +124,20 @@ export default function SubmitPage() {
           </div>
         </nav>
 
-        <main className="mx-auto max-w-3xl px-4 py-8 sm:px-6 lg:px-8">
-          <div className="rounded-lg bg-white p-6 shadow-sm">
-            <h1 className="text-2xl font-bold text-gray-900 mb-6">
+        <main className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+          <div style={{
+            borderRadius: '20px',
+            background: 'var(--surface)',
+            padding: '2.5rem',
+            boxShadow: '0 4px 16px var(--shadow)',
+            border: '1px solid var(--border)'
+          }}>
+            <h1 style={{
+              fontSize: '2.25rem',
+              fontFamily: 'DM Serif Display, Georgia, serif',
+              color: 'var(--deep-brown)',
+              marginBottom: '2rem'
+            }}>
               Submit Wordle Result
             </h1>
 
@@ -106,21 +145,50 @@ export default function SubmitPage() {
 
             {message && (
               <div
-                className={`mt-4 rounded-md p-4 ${
-                  message.type === "success"
-                    ? "bg-green-50 text-green-800"
-                    : "bg-red-50 text-red-800"
-                }`}
+                style={{
+                  marginTop: '1.25rem',
+                  padding: '1.25rem',
+                  borderRadius: '12px',
+                  background: message.type === "success" ? 'var(--success-light)' : 'var(--error-light)',
+                  color: message.type === "success" ? 'var(--success)' : 'var(--error)',
+                  fontWeight: '500',
+                  fontSize: '0.9375rem'
+                }}
               >
                 {message.text}
               </div>
             )}
 
-            <div className="mt-6">
+            <div style={{ marginTop: '2rem' }}>
               <button
                 onClick={handleSubmit}
                 disabled={!parsed || loading}
-                className="w-full rounded-md bg-indigo-600 px-4 py-2 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{
+                  width: '100%',
+                  background: (!parsed || loading) ? 'var(--sand)' : 'var(--honey)',
+                  color: 'white',
+                  padding: '1rem',
+                  fontSize: '1.0625rem',
+                  fontWeight: '600',
+                  cursor: (!parsed || loading) ? 'not-allowed' : 'pointer',
+                  opacity: (!parsed || loading) ? 0.6 : 1,
+                  boxShadow: (!parsed || loading) ? 'none' : '0 4px 12px rgba(196, 144, 96, 0.3)',
+                  border: 'none'
+                }}
+                onMouseEnter={(e) => {
+                  if (!(!parsed || loading)) {
+                    e.currentTarget.style.background = 'var(--amber)';
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                    e.currentTarget.style.boxShadow = '0 6px 16px rgba(196, 144, 96, 0.35)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (!(!parsed || loading)) {
+                    e.currentTarget.style.background = 'var(--honey)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(196, 144, 96, 0.3)';
+                  }
+                }}
               >
                 {loading ? "Submitting..." : "Submit"}
               </button>

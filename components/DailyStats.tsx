@@ -97,16 +97,35 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
   }, [targetWordle, fetchSubmissions]);
 
   if (loading && submissions.length === 0) {
-    return <div className="text-center py-8">Loading...</div>;
+    return (
+      <div style={{
+        textAlign: 'center',
+        padding: '3rem',
+        color: 'var(--chocolate)',
+        fontSize: '1.0625rem'
+      }}>
+        Loading...
+      </div>
+    );
   }
 
   const currentWordle = targetWordle || submissions[0]?.wordle_number;
   const userSubmissions = submissions; // Already grouped in fetchSubmissions
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-gray-900">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '1rem'
+      }}>
+        <h2 style={{
+          fontSize: '1.75rem',
+          fontFamily: 'DM Serif Display, Georgia, serif',
+          color: 'var(--deep-brown)'
+        }}>
           Wordle #{currentWordle || "N/A"}
         </h2>
         <select
@@ -114,7 +133,19 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
           onChange={(e) =>
             setTargetWordle(e.target.value ? parseInt(e.target.value) : null)
           }
-          className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
+          style={{
+            border: '1.5px solid var(--border)',
+            background: 'var(--surface)',
+            padding: '0.625rem 2.5rem 0.625rem 1rem',
+            fontSize: '0.9375rem',
+            color: 'var(--espresso)',
+            fontWeight: '500',
+            cursor: 'pointer',
+            appearance: 'none',
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%238b6f47' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'right 0.75rem center'
+          }}
         >
           {availableWordles.map((wordleNum) => (
             <option key={wordleNum} value={wordleNum}>
@@ -125,31 +156,71 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
       </div>
 
       {userSubmissions.length === 0 ? (
-        <div className="rounded-lg bg-gray-50 p-8 text-center text-gray-500">
+        <div style={{
+          borderRadius: '16px',
+          background: 'var(--warm-white)',
+          border: '1px solid var(--border)',
+          padding: '3rem',
+          textAlign: 'center',
+          color: 'var(--chocolate)',
+          fontSize: '1.0625rem'
+        }}>
           No submissions yet for this Wordle
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div style={{
+          display: 'grid',
+          gap: '1.25rem',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))'
+        }}>
           {userSubmissions.map((submission) => (
             <div
               key={submission.id}
-              className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm"
+              style={{
+                borderRadius: '16px',
+                border: '1px solid var(--border)',
+                background: 'var(--surface)',
+                padding: '1.5rem',
+                boxShadow: '0 2px 8px var(--shadow)',
+                transition: 'all 0.2s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(93, 74, 58, 0.12)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 2px 8px var(--shadow)';
+              }}
             >
-              <div className="flex items-center justify-between">
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <div>
-                  <p className="font-medium text-gray-900">
+                  <p style={{
+                    fontWeight: '600',
+                    color: 'var(--espresso)',
+                    fontSize: '1.0625rem',
+                    marginBottom: '0.375rem'
+                  }}>
                     {submission.user?.email || submission.user_id.substring(0, 8) + "..."}
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p style={{
+                    fontSize: '1.5rem',
+                    fontFamily: 'DM Serif Display, Georgia, serif',
+                    color: 'var(--honey)',
+                    fontWeight: '400'
+                  }}>
                     {submission.guesses}/6
                   </p>
                 </div>
                 <div
-                  className={`rounded-full px-3 py-1 text-sm font-medium ${
-                    submission.won
-                      ? "bg-green-100 text-green-800"
-                      : "bg-red-100 text-red-800"
-                  }`}
+                  style={{
+                    borderRadius: '20px',
+                    padding: '0.5rem 1rem',
+                    fontSize: '0.875rem',
+                    fontWeight: '600',
+                    background: submission.won ? 'var(--success-light)' : 'var(--error-light)',
+                    color: submission.won ? 'var(--success)' : 'var(--error)'
+                  }}
                 >
                   {submission.won ? "Won" : "Lost"}
                 </div>

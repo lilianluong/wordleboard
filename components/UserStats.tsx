@@ -106,15 +106,30 @@ export default function UserStats({ userId }: UserStatsProps) {
   };
 
   if (loading && !submissions.length) {
-    return <div className="text-center py-8">Loading...</div>;
+    return (
+      <div style={{
+        textAlign: 'center',
+        padding: '3rem',
+        color: 'var(--chocolate)',
+        fontSize: '1.0625rem'
+      }}>
+        Loading...
+      </div>
+    );
   }
 
   return (
-    <div className="space-y-6">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
       <div>
         <label
           htmlFor="user-select"
-          className="block text-sm font-medium text-gray-700 mb-2"
+          style={{
+            display: 'block',
+            fontSize: '0.9375rem',
+            fontWeight: '600',
+            color: 'var(--espresso)',
+            marginBottom: '0.625rem'
+          }}
         >
           Select User
         </label>
@@ -122,7 +137,20 @@ export default function UserStats({ userId }: UserStatsProps) {
           id="user-select"
           value={selectedUserId || ""}
           onChange={(e) => setSelectedUserId(e.target.value)}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
+          style={{
+            width: '100%',
+            border: '1.5px solid var(--border)',
+            background: 'var(--surface)',
+            padding: '0.75rem 2.5rem 0.75rem 1rem',
+            fontSize: '1rem',
+            color: 'var(--espresso)',
+            fontWeight: '500',
+            cursor: 'pointer',
+            appearance: 'none',
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%238b6f47' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'right 0.75rem center'
+          }}
         >
           {users.map((user) => (
             <option key={user.id} value={user.id}>
@@ -133,31 +161,95 @@ export default function UserStats({ userId }: UserStatsProps) {
       </div>
 
       {submissions.length === 0 ? (
-        <div className="rounded-lg bg-gray-50 p-8 text-center text-gray-500">
+        <div style={{
+          borderRadius: '16px',
+          background: 'var(--warm-white)',
+          border: '1px solid var(--border)',
+          padding: '3rem',
+          textAlign: 'center',
+          color: 'var(--chocolate)',
+          fontSize: '1.0625rem'
+        }}>
           No submissions found for this user
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-            <p className="text-sm text-gray-500">Total Games</p>
-            <p className="text-2xl font-bold text-gray-900">{stats.totalGames}</p>
+        <div style={{
+          display: 'grid',
+          gap: '1.25rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))'
+        }}>
+          <div style={{
+            borderRadius: '16px',
+            border: '1px solid var(--border)',
+            background: 'var(--surface)',
+            padding: '1.5rem',
+            boxShadow: '0 2px 8px var(--shadow)'
+          }}>
+            <p style={{ fontSize: '0.875rem', color: 'var(--chocolate)', marginBottom: '0.5rem' }}>
+              Total Games
+            </p>
+            <p style={{
+              fontSize: '2.25rem',
+              fontFamily: 'DM Serif Display, Georgia, serif',
+              color: 'var(--deep-brown)'
+            }}>
+              {stats.totalGames}
+            </p>
           </div>
-          <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-            <p className="text-sm text-gray-500">Win Rate</p>
-            <p className="text-2xl font-bold text-gray-900">{stats.winRate}%</p>
-            <p className="text-xs text-gray-500 mt-1">
+          <div style={{
+            borderRadius: '16px',
+            border: '1px solid var(--border)',
+            background: 'var(--surface)',
+            padding: '1.5rem',
+            boxShadow: '0 2px 8px var(--shadow)'
+          }}>
+            <p style={{ fontSize: '0.875rem', color: 'var(--chocolate)', marginBottom: '0.5rem' }}>
+              Win Rate
+            </p>
+            <p style={{
+              fontSize: '2.25rem',
+              fontFamily: 'DM Serif Display, Georgia, serif',
+              color: 'var(--deep-brown)'
+            }}>
+              {stats.winRate}%
+            </p>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--chocolate)', marginTop: '0.375rem' }}>
               {stats.wins}W / {stats.losses}L
             </p>
           </div>
-          <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-            <p className="text-sm text-gray-500">Avg Guesses</p>
-            <p className="text-2xl font-bold text-gray-900">
+          <div style={{
+            borderRadius: '16px',
+            border: '1px solid var(--border)',
+            background: 'var(--surface)',
+            padding: '1.5rem',
+            boxShadow: '0 2px 8px var(--shadow)'
+          }}>
+            <p style={{ fontSize: '0.875rem', color: 'var(--chocolate)', marginBottom: '0.5rem' }}>
+              Avg Guesses
+            </p>
+            <p style={{
+              fontSize: '2.25rem',
+              fontFamily: 'DM Serif Display, Georgia, serif',
+              color: 'var(--deep-brown)'
+            }}>
               {stats.averageGuesses}
             </p>
           </div>
-          <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-            <p className="text-sm text-gray-500">Best / Worst</p>
-            <p className="text-2xl font-bold text-gray-900">
+          <div style={{
+            borderRadius: '16px',
+            border: '1px solid var(--border)',
+            background: 'var(--surface)',
+            padding: '1.5rem',
+            boxShadow: '0 2px 8px var(--shadow)'
+          }}>
+            <p style={{ fontSize: '0.875rem', color: 'var(--chocolate)', marginBottom: '0.5rem' }}>
+              Best / Worst
+            </p>
+            <p style={{
+              fontSize: '2.25rem',
+              fontFamily: 'DM Serif Display, Georgia, serif',
+              color: 'var(--deep-brown)'
+            }}>
               {stats.bestGuesses !== null ? `${stats.bestGuesses} / ${stats.worstGuesses}` : "N/A"}
             </p>
           </div>
@@ -165,25 +257,53 @@ export default function UserStats({ userId }: UserStatsProps) {
       )}
 
       {submissions.length > 0 && (
-        <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-          <h3 className="font-medium text-gray-900 mb-3">Recent Games</h3>
-          <div className="space-y-2">
+        <div style={{
+          borderRadius: '16px',
+          border: '1px solid var(--border)',
+          background: 'var(--surface)',
+          padding: '1.75rem',
+          boxShadow: '0 2px 8px var(--shadow)'
+        }}>
+          <h3 style={{
+            fontFamily: 'DM Serif Display, Georgia, serif',
+            fontSize: '1.375rem',
+            color: 'var(--deep-brown)',
+            marginBottom: '1.25rem'
+          }}>
+            Recent Games
+          </h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {submissions.slice(0, 10).map((sub, idx) => (
               <div
                 key={idx}
-                className="flex items-center justify-between border-b border-gray-100 pb-2 last:border-0"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  borderBottom: idx < Math.min(9, submissions.length - 1) ? '1px solid var(--border)' : 'none',
+                  paddingBottom: '0.75rem'
+                }}
               >
-                <span className="text-sm text-gray-600">
+                <span style={{ fontSize: '0.9375rem', color: 'var(--chocolate)' }}>
                   Wordle #{sub.wordle_number}
                 </span>
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">{sub.guesses}/6</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+                  <span style={{
+                    fontSize: '0.9375rem',
+                    fontWeight: '600',
+                    color: 'var(--espresso)'
+                  }}>
+                    {sub.guesses}/6
+                  </span>
                   <span
-                    className={`rounded-full px-2 py-0.5 text-xs ${
-                      sub.won
-                        ? "bg-green-100 text-green-800"
-                        : "bg-red-100 text-red-800"
-                    }`}
+                    style={{
+                      borderRadius: '12px',
+                      padding: '0.25rem 0.625rem',
+                      fontSize: '0.8125rem',
+                      fontWeight: '600',
+                      background: sub.won ? 'var(--success-light)' : 'var(--error-light)',
+                      color: sub.won ? 'var(--success)' : 'var(--error)'
+                    }}
                   >
                     {sub.won ? "W" : "L"}
                   </span>

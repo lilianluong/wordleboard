@@ -31,30 +31,70 @@ export default function Home() {
 
   return (
     <AuthGuard>
-      <div className="min-h-screen bg-gray-50">
-        <nav className="bg-white shadow-sm">
+      <div className="min-h-screen" style={{ background: 'var(--background)' }}>
+        <nav style={{
+          background: 'var(--surface)',
+          borderBottom: '1px solid var(--border)',
+          boxShadow: '0 1px 3px var(--shadow)'
+        }}>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex h-16 items-center justify-between">
-              <Link href="/" className="text-xl font-bold text-gray-900">
+            <div className="flex h-20 items-center justify-between">
+              <Link
+                href="/"
+                style={{
+                  fontSize: '1.5rem',
+                  fontFamily: 'DM Serif Display, Georgia, serif',
+                  color: 'var(--deep-brown)',
+                  textDecoration: 'none'
+                }}
+              >
                 Wordle Board
               </Link>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 <Link
                   href="/submit"
-                  className="rounded-md bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700"
+                  style={{
+                    background: 'var(--honey)',
+                    color: 'white',
+                    padding: '0.625rem 1.5rem',
+                    borderRadius: '12px',
+                    textDecoration: 'none',
+                    fontSize: '0.9375rem',
+                    fontWeight: '600',
+                    boxShadow: '0 2px 8px rgba(196, 144, 96, 0.25)',
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.background = 'var(--amber)'}
+                  onMouseLeave={(e) => e.currentTarget.style.background = 'var(--honey)'}
                 >
                   Submit
                 </Link>
                 <Link
                   href="/stats"
-                  className="text-gray-600 hover:text-gray-900"
+                  style={{
+                    color: 'var(--chocolate)',
+                    textDecoration: 'none',
+                    fontSize: '0.9375rem',
+                    fontWeight: '500',
+                    padding: '0.625rem 1rem'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--espresso)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--chocolate)'}
                 >
                   Stats
                 </Link>
                 {user && (
                   <button
                     onClick={handleSignOut}
-                    className="text-sm text-gray-600 hover:text-gray-900"
+                    style={{
+                      color: 'var(--chocolate)',
+                      fontSize: '0.875rem',
+                      fontWeight: '500',
+                      background: 'transparent',
+                      border: 'none',
+                      padding: '0.625rem 1rem'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--espresso)'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--chocolate)'}
                   >
                     Sign Out
                   </button>
@@ -64,10 +104,21 @@ export default function Home() {
           </div>
         </nav>
 
-        <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-          <div className="mb-6">
-            <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-            <p className="mt-2 text-gray-600">
+        <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+          <div className="mb-10">
+            <h1 style={{
+              fontSize: '2.75rem',
+              marginBottom: '0.75rem',
+              fontFamily: 'DM Serif Display, Georgia, serif',
+              color: 'var(--deep-brown)'
+            }}>
+              Dashboard
+            </h1>
+            <p style={{
+              fontSize: '1.125rem',
+              color: 'var(--chocolate)',
+              fontWeight: '400'
+            }}>
               See how everyone did on today's Wordle
             </p>
           </div>
