@@ -3,6 +3,8 @@
 import { useEffect, useState, useCallback } from "react";
 import { getTodayWordleNumber } from "@/lib/wordle-date";
 import UserAvatar from "@/components/UserAvatar";
+import { createClient } from "@/lib/supabase/client";
+import InlineSubmitModal from "@/components/InlineSubmitModal";
 
 interface Submission {
   id: string;
@@ -30,6 +32,9 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
   const [targetWordle, setTargetWordle] = useState<number | null>(
     wordleNumber || null
   );
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [hasSubmittedToday, setHasSubmittedToday] = useState(false);
+  const [showSubmitModal, setShowSubmitModal] = useState(false);
 
   const fetchSubmissions = useCallback(async () => {
     if (targetWordle === null) return;
@@ -61,6 +66,44 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
     setLoading(false);
   }, [targetWordle]);
 
+  // Get current user.
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setCurrentUserId(user?.id || null);
+    };
+    fetchCurrentUser();
+  }, []);
+
+  // Check if user has submitted today's wordle.
+  useEffect(() => {
+    const checkTodaySubmission = async () => {
+      if (!currentUserId) return;
+
+      const todayWordle = getTodayWordleNumber();
+      try {
+        const response = await fetch(
+          `/api/submissions?wordle_number=${todayWordle}`
+        );
+        const data = await response.json();
+
+        if (response.ok && data.submissions) {
+          const userSubmission = data.submissions.find(
+            (s: Submission) => s.user_id === currentUserId
+          );
+          setHasSubmittedToday(!!userSubmission);
+        }
+      } catch (error) {
+        console.error("Error checking today's submission:", error);
+      }
+    };
+
+    checkTodaySubmission();
+  }, [currentUserId, targetWordle]);
+
   useEffect(() => {
     const loadInitialData = async () => {
       try {
@@ -72,7 +115,7 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
           const uniqueWordles = Array.from<number>(
             new Set(data.submissions.map((s: Submission) => s.wordle_number))
           ).sort((a, b) => b - a);
-          
+
           setAvailableWordles(uniqueWordles);
 
           // Auto-select today's wordle or the latest available if not already set
@@ -130,6 +173,16 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
     return new Date(a.submitted_at).getTime() - new Date(b.submitted_at).getTime();
   });
 
+  const todayWordle = getTodayWordleNumber();
+  const isViewingToday = currentWordle === todayWordle;
+  const shouldShowCTA = isViewingToday && !hasSubmittedToday && currentUserId;
+
+  const handleSubmitSuccess = () => {
+    // Refresh the submissions after successful submit.
+    setHasSubmittedToday(true);
+    fetchSubmissions();
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
       <div style={{
@@ -168,6 +221,63 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
           ))}
         </select>
       </div>
+
+      {shouldShowCTA && (
+        <div style={{
+          borderRadius: '12px',
+          background: 'linear-gradient(135deg, var(--blue-soft) 0%, var(--mint) 100%)',
+          padding: '1.5rem',
+          boxShadow: '0 4px 12px rgba(107, 155, 209, 0.3)',
+          border: '1px solid rgba(107, 155, 209, 0.2)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+          alignItems: 'center',
+          textAlign: 'center'
+        }}>
+          <div>
+            <h3 style={{
+              fontSize: '1.25rem',
+              fontWeight: '600',
+              color: 'white',
+              marginBottom: '0.5rem'
+            }}>
+              Haven't submitted today's Wordle yet?
+            </h3>
+            <p style={{
+              fontSize: '0.9375rem',
+              color: 'rgba(255, 255, 255, 0.9)',
+              fontWeight: '400'
+            }}>
+              Submit your result for Wordle #{todayWordle} now!
+            </p>
+          </div>
+          <button
+            onClick={() => setShowSubmitModal(true)}
+            style={{
+              background: 'white',
+              color: 'var(--blue-soft)',
+              padding: '0.75rem 2rem',
+              fontSize: '1rem',
+              fontWeight: '600',
+              border: 'none',
+              cursor: 'pointer',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+              transition: 'all 0.2s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.15)';
+            }}
+          >
+            Submit Today's Wordle
+          </button>
+        </div>
+      )}
 
       {userSubmissions.length === 0 ? (
         <div style={{
@@ -259,6 +369,13 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
             </div>
           ))}
         </div>
+      )}
+
+      {showSubmitModal && (
+        <InlineSubmitModal
+          onClose={() => setShowSubmitModal(false)}
+          onSuccess={handleSubmitSuccess}
+        />
       )}
     </div>
   );
