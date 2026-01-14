@@ -142,29 +142,33 @@ export async function GET(request: Request) {
     }
 
     // Fetch user profiles
-    let profilesMap = new Map<string, string>();
+    let profilesMap = new Map<string, any>();
     const { data: profiles, error: profilesError } = await supabase
       .from("user_profiles")
-      .select("user_id, email");
-    
+      .select("user_id, email, username, profile_picture_url");
+
     if (profilesError) {
       console.error("Error fetching user profiles:", profilesError);
       // Continue without profiles - will fall back to user IDs
     } else if (profiles) {
       profiles.forEach((profile: any) => {
-        profilesMap.set(profile.user_id, profile.email);
+        profilesMap.set(profile.user_id, profile);
       });
     }
 
-    // Transform the data to include user email in a consistent format
+    // Transform the data to include user email, username, and profile picture in a consistent format
     const submissionsWithUser = (data || []).map((submission: any) => {
-      const profileEmail = profilesMap.get(submission.user_id);
-      const email = profileEmail || (submission.user_id === user.id ? user.email : null) || null;
-      
+      const profile = profilesMap.get(submission.user_id);
+      const email = profile?.email || (submission.user_id === user.id ? user.email : null) || null;
+      const username = profile?.username || null;
+      const profile_picture_url = profile?.profile_picture_url || null;
+
       return {
         ...submission,
         user: {
           email,
+          username,
+          profile_picture_url,
         },
       };
     });

@@ -11,6 +11,7 @@ interface Submission {
 interface User {
   id: string;
   email: string;
+  username: string | null;
 }
 
 interface UserStatsProps {
@@ -47,6 +48,7 @@ export default function UserStats({ userId }: UserStatsProps) {
             return {
               id,
               email: submission?.user?.email || id.substring(0, 8) + "...",
+              username: submission?.user?.username || null,
             };
           })
         );
@@ -154,7 +156,7 @@ export default function UserStats({ userId }: UserStatsProps) {
         >
           {users.map((user) => (
             <option key={user.id} value={user.id}>
-              {user.email}
+              {user.username || user.email}
             </option>
           ))}
         </select>

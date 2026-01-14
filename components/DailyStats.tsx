@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { getTodayWordleNumber } from "@/lib/wordle-date";
+import UserAvatar from "@/components/UserAvatar";
 
 interface Submission {
   id: string;
@@ -12,6 +13,8 @@ interface Submission {
   submitted_at: string;
   user?: {
     email: string;
+    username: string | null;
+    profile_picture_url: string | null;
   };
 }
 
@@ -205,17 +208,13 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
             >
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem' }}>
                 <div style={{ flex: '1', minWidth: '0' }}>
-                  <p style={{
-                    fontWeight: '600',
-                    color: 'var(--slate-700)',
-                    fontSize: '0.9375rem',
-                    marginBottom: '0.25rem',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap'
-                  }}>
-                    {submission.user?.email || submission.user_id.substring(0, 8) + "..."}
-                  </p>
+                  <div style={{ marginBottom: '0.25rem' }}>
+                    <UserAvatar
+                      username={submission.user?.username || submission.user?.email || "Anonymous"}
+                      avatarUrl={submission.user?.profile_picture_url}
+                      size="sm"
+                    />
+                  </div>
                   <p style={{
                     fontSize: '1.625rem',
                     fontWeight: '600',

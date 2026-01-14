@@ -89,6 +89,20 @@ export default function Home() {
                 >
                   Stats
                 </Link>
+                <Link
+                  href="/profile"
+                  style={{
+                    color: 'var(--slate-500)',
+                    textDecoration: 'none',
+                    fontSize: '0.9375rem',
+                    fontWeight: '500',
+                    padding: '0.5rem 1rem'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--slate-700)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--slate-500)'}
+                >
+                  Profile
+                </Link>
                 {user && (
                   <button
                     onClick={handleSignOut}
