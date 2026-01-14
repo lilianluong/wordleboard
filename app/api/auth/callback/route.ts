@@ -36,11 +36,15 @@ export async function GET(request: Request) {
           // Continue anyway - profile creation is not critical for auth
         }
       }
+
+      // Redirect after successful authentication.
+      return NextResponse.redirect(new URL(next, requestUrl.origin));
     } catch (error) {
       console.error("Error in auth callback:", error);
       return NextResponse.redirect(new URL("/login?error=auth_failed", requestUrl.origin));
     }
   }
 
-  return NextResponse.redirect(new URL(next, requestUrl.origin));
+  // If no code parameter, redirect to login.
+  return NextResponse.redirect(new URL("/login", requestUrl.origin));
 }

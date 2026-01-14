@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
 export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
   const supabase = createClient();
 
   useEffect(() => {
@@ -20,8 +18,10 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
       setUser(user);
       setLoading(false);
 
+      // Middleware handles redirects, so we just check if user exists.
       if (!user) {
-        router.push("/login");
+        // Force a full page refresh to trigger middleware redirect.
+        window.location.href = "/login";
       }
     };
 
@@ -30,14 +30,17 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-      if (!session?.user) {
-        router.push("/login");
+      if (session?.user) {
+        setUser(session.user);
+        setLoading(false);
+      } else {
+        // Force a full page refresh to trigger middleware redirect.
+        window.location.href = "/login";
       }
     });
 
     return () => subscription.unsubscribe();
-  }, [router]);
+  }, [supabase]);
 
   if (loading) {
     return (
