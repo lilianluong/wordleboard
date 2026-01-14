@@ -5,6 +5,29 @@ export function generateUsername(email: string): string {
   return base.replace(/[^a-z0-9_]/g, "");
 }
 
+export async function generateUniqueUsername(
+  supabase: any,
+  email: string,
+  userId: string
+): Promise<string> {
+  const baseUsername = generateUsername(email);
+
+  // Try base username first.
+  const { data: existingUser } = await supabase
+    .from("user_profiles")
+    .select("user_id")
+    .eq("username", baseUsername)
+    .single();
+
+  // If no conflict, use base username.
+  if (!existingUser) {
+    return baseUsername;
+  }
+
+  // If conflict, append first 4 characters of user ID.
+  return `${baseUsername}_${userId.substring(0, 4)}`;
+}
+
 export function validateUsername(
   username: string
 ): { valid: boolean; error?: string } {

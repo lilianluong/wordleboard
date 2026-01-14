@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { parseWordleGrid } from "@/lib/wordle-parser";
+import { generateUniqueUsername } from "@/lib/username-utils";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -40,17 +41,44 @@ export async function POST(request: Request) {
       .eq("wordle_number", parsed.wordleNumber)
       .single();
 
-    // Upsert user profile with email
+    // Upsert user profile with email and username.
     if (user.email) {
-      const { error: profileError } = await supabase.from("user_profiles").upsert({
-        user_id: user.id,
-        email: user.email,
-        updated_at: new Date().toISOString(),
-      });
-      
-      if (profileError) {
-        console.error("Error upserting user profile:", profileError);
-        // Continue anyway - profile update is not critical
+      // Check if profile exists.
+      const { data: existingProfile } = await supabase
+        .from("user_profiles")
+        .select("user_id, username")
+        .eq("user_id", user.id)
+        .single();
+
+      if (!existingProfile) {
+        // Create new profile with unique username.
+        const username = await generateUniqueUsername(supabase, user.email, user.id);
+
+        const { error: profileError } = await supabase.from("user_profiles").insert({
+          user_id: user.id,
+          email: user.email,
+          username: username,
+          updated_at: new Date().toISOString(),
+        });
+
+        if (profileError) {
+          console.error("Error creating user profile:", profileError);
+          // Continue anyway - profile creation is not critical
+        }
+      } else {
+        // Update existing profile email only.
+        const { error: profileError } = await supabase
+          .from("user_profiles")
+          .update({
+            email: user.email,
+            updated_at: new Date().toISOString(),
+          })
+          .eq("user_id", user.id);
+
+        if (profileError) {
+          console.error("Error updating user profile:", profileError);
+          // Continue anyway - profile update is not critical
+        }
       }
     }
 
