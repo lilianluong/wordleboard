@@ -17,8 +17,17 @@ export async function GET(request: Request) {
         return NextResponse.redirect(new URL("/login?error=auth_failed", requestUrl.origin));
       }
 
-      // Create user profile if it doesn't exist.
+      // Check if user profile exists to determine if this is a new user.
+      let isNewUser = false;
       if (data?.user?.email) {
+        const { data: existingProfile } = await supabase
+          .from("user_profiles")
+          .select("user_id")
+          .eq("user_id", data.user.id)
+          .single();
+
+        isNewUser = !existingProfile;
+
         const username = await generateUniqueUsername(supabase, data.user.email, data.user.id);
 
         const { error: profileError } = await supabase.from("user_profiles").upsert({
@@ -38,7 +47,9 @@ export async function GET(request: Request) {
       }
 
       // Redirect after successful authentication.
-      return NextResponse.redirect(new URL(next, requestUrl.origin));
+      // New users go to profile page, existing users go to their intended destination.
+      const redirectUrl = isNewUser ? "/profile" : next;
+      return NextResponse.redirect(new URL(redirectUrl, requestUrl.origin));
     } catch (error) {
       console.error("Error in auth callback:", error);
       return NextResponse.redirect(new URL("/login?error=auth_failed", requestUrl.origin));
