@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { getTodayWordleNumber } from '@/lib/wordle-date'
 import { sendPushNotifications, type NotificationPayload } from '@/lib/push-sender'
 
@@ -13,7 +13,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const supabase = await createClient()
+    const supabase = createAdminClient()
     const todayWordleNumber = getTodayWordleNumber()
 
     // Get all users who have push subscriptions.
