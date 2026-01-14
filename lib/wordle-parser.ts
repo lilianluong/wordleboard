@@ -2,6 +2,7 @@ export interface ParsedWordle {
   wordleNumber: number;
   guesses: number;
   won: boolean;
+  guessesGrid: string;
 }
 
 /**
@@ -47,10 +48,16 @@ export function parseWordleGrid(input: string): ParsedWordle | null {
     // Otherwise (1/6, 2/6, 3/6, 4/6, 5/6), it's a win
     const won = guesses < maxGuesses;
 
+    // Extract emoji grid lines (skip the first line which contains "Wordle X Y/Z").
+    const emojiRegex = /[🟩🟨⬛⬜]/;
+    const emojiLines = lines.slice(1).filter(line => emojiRegex.test(line));
+    const guessesGrid = emojiLines.join('\n');
+
     return {
       wordleNumber,
       guesses,
       won,
+      guessesGrid,
     };
   } catch (error) {
     console.error("Error parsing Wordle grid:", error);

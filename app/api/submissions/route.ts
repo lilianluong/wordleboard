@@ -61,6 +61,7 @@ export async function POST(request: Request) {
         .update({
           guesses: parsed.guesses,
           won: parsed.won,
+          guesses_grid: parsed.guessesGrid,
           submitted_at: new Date().toISOString(),
         })
         .eq("id", existing.id);
@@ -82,6 +83,7 @@ export async function POST(request: Request) {
       wordle_number: parsed.wordleNumber,
       guesses: parsed.guesses,
       won: parsed.won,
+      guesses_grid: parsed.guessesGrid,
       submitted_at: new Date().toISOString(),
     });
 

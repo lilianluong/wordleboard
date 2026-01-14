@@ -10,6 +10,7 @@ interface Submission {
   wordle_number: number;
   guesses: number;
   won: boolean;
+  guesses_grid?: string;
   submitted_at: string;
   user?: {
     email: string;
@@ -206,37 +207,54 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
                 e.currentTarget.style.boxShadow = '0 1px 3px var(--shadow)';
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem' }}>
-                <div style={{ flex: '1', minWidth: '0' }}>
-                  <div style={{ marginBottom: '0.25rem' }}>
-                    <UserAvatar
-                      username={submission.user?.username || submission.user?.email || "Anonymous"}
-                      avatarUrl={submission.user?.profile_picture_url}
-                      size="sm"
-                    />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem' }}>
+                  <div style={{ flex: '1', minWidth: '0' }}>
+                    <div style={{ marginBottom: '0.25rem' }}>
+                      <UserAvatar
+                        username={submission.user?.username || submission.user?.email || "Anonymous"}
+                        avatarUrl={submission.user?.profile_picture_url}
+                        size="sm"
+                      />
+                    </div>
+                    <p style={{
+                      fontSize: '1.625rem',
+                      fontWeight: '600',
+                      color: 'var(--blue-soft)',
+                      lineHeight: '1'
+                    }}>
+                      {submission.guesses}/6
+                    </p>
                   </div>
-                  <p style={{
-                    fontSize: '1.625rem',
-                    fontWeight: '600',
-                    color: 'var(--blue-soft)',
-                    lineHeight: '1'
-                  }}>
-                    {submission.guesses}/6
-                  </p>
+                  <div
+                    style={{
+                      borderRadius: '8px',
+                      padding: '0.375rem 0.75rem',
+                      fontSize: '0.8125rem',
+                      fontWeight: '600',
+                      background: submission.won ? 'var(--success-light)' : 'var(--error-light)',
+                      color: submission.won ? 'var(--success)' : 'var(--error)',
+                      flexShrink: '0'
+                    }}
+                  >
+                    {submission.won ? "Won" : "Lost"}
+                  </div>
                 </div>
-                <div
-                  style={{
+                {submission.guesses_grid && (
+                  <div style={{
+                    background: 'var(--mist)',
+                    padding: '0.75rem',
                     borderRadius: '8px',
-                    padding: '0.375rem 0.75rem',
-                    fontSize: '0.8125rem',
-                    fontWeight: '600',
-                    background: submission.won ? 'var(--success-light)' : 'var(--error-light)',
-                    color: submission.won ? 'var(--success)' : 'var(--error)',
-                    flexShrink: '0'
-                  }}
-                >
-                  {submission.won ? "Won" : "Lost"}
-                </div>
+                    textAlign: 'center',
+                    whiteSpace: 'pre',
+                    fontFamily: 'Consolas, Monaco, "Courier New", monospace',
+                    fontSize: '1.25rem',
+                    lineHeight: '1.4',
+                    letterSpacing: '0.05em'
+                  }}>
+                    {submission.guesses_grid}
+                  </div>
+                )}
               </div>
             </div>
           ))}

@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS wordle_submissions (
   wordle_number INTEGER NOT NULL,
   guesses INTEGER NOT NULL CHECK (guesses >= 1 AND guesses <= 6),
   won BOOLEAN NOT NULL,
+  guesses_grid TEXT,
   submitted_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   UNIQUE(user_id, wordle_number)
