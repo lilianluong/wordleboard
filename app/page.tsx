@@ -37,12 +37,12 @@ export default function Home() {
           borderBottom: '1px solid var(--border)',
           boxShadow: '0 1px 3px var(--shadow)'
         }}>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex h-20 items-center justify-between">
+          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+            <div className="flex h-16 sm:h-20 items-center justify-between">
               <Link
                 href="/"
+                className="text-lg sm:text-[1.375rem]"
                 style={{
-                  fontSize: '1.375rem',
                   fontWeight: '600',
                   color: 'var(--slate-700)',
                   textDecoration: 'none',
@@ -51,16 +51,16 @@ export default function Home() {
               >
                 Wordle Board
               </Link>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1 sm:gap-3">
                 <Link
                   href="/submit"
+                  className="text-sm sm:text-[0.9375rem] px-2.5 sm:px-5"
                   style={{
                     background: 'var(--blue-soft)',
                     color: 'white',
-                    padding: '0.5rem 1.25rem',
+                    padding: '0.4rem 0.75rem',
                     borderRadius: '8px',
                     textDecoration: 'none',
-                    fontSize: '0.9375rem',
                     fontWeight: '600',
                     boxShadow: '0 1px 3px rgba(107, 155, 209, 0.2)',
                   }}
@@ -77,12 +77,12 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/stats"
+                  className="text-sm sm:text-[0.9375rem] px-2 sm:px-4"
                   style={{
                     color: 'var(--slate-500)',
                     textDecoration: 'none',
-                    fontSize: '0.9375rem',
                     fontWeight: '500',
-                    padding: '0.5rem 1rem'
+                    padding: '0.4rem 0.5rem'
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.color = 'var(--slate-700)'}
                   onMouseLeave={(e) => e.currentTarget.style.color = 'var(--slate-500)'}
@@ -91,12 +91,12 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/profile"
+                  className="text-sm sm:text-[0.9375rem] px-2 sm:px-4"
                   style={{
                     color: 'var(--slate-500)',
                     textDecoration: 'none',
-                    fontSize: '0.9375rem',
                     fontWeight: '500',
-                    padding: '0.5rem 1rem'
+                    padding: '0.4rem 0.5rem'
                   }}
                   onMouseEnter={(e) => e.currentTarget.style.color = 'var(--slate-700)'}
                   onMouseLeave={(e) => e.currentTarget.style.color = 'var(--slate-500)'}
@@ -106,13 +106,13 @@ export default function Home() {
                 {user && (
                   <button
                     onClick={handleSignOut}
+                    className="text-xs sm:text-sm px-2 sm:px-4"
                     style={{
                       color: 'var(--slate-500)',
-                      fontSize: '0.875rem',
                       fontWeight: '500',
                       background: 'transparent',
                       border: 'none',
-                      padding: '0.5rem 1rem'
+                      padding: '0.4rem 0.5rem'
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.color = 'var(--slate-700)'}
                     onMouseLeave={(e) => e.currentTarget.style.color = 'var(--slate-500)'}

@@ -17,11 +17,23 @@ export default function UserAvatar({
 }: UserAvatarProps) {
   const [imageError, setImageError] = useState(false);
 
-  // Size mappings.
+  // Size mappings with responsive mobile sizes.
   const sizeMap = {
-    sm: { container: 24, icon: 16, text: "0.75rem" },
-    md: { container: 32, icon: 20, text: "0.875rem" },
-    lg: { container: 48, icon: 28, text: "1rem" },
+    sm: {
+      container: { mobile: 32, desktop: 24 },
+      icon: { mobile: 20, desktop: 16 },
+      text: { mobile: "0.875rem", desktop: "0.75rem" }
+    },
+    md: {
+      container: { mobile: 40, desktop: 32 },
+      icon: { mobile: 24, desktop: 20 },
+      text: { mobile: "1rem", desktop: "0.875rem" }
+    },
+    lg: {
+      container: { mobile: 56, desktop: 48 },
+      icon: { mobile: 32, desktop: 28 },
+      text: { mobile: "1.125rem", desktop: "1rem" }
+    },
   };
 
   const dimensions = sizeMap[size];
@@ -29,25 +41,19 @@ export default function UserAvatar({
 
   return (
     <div
+      className="flex items-center"
       style={{
-        display: "flex",
-        alignItems: "center",
         gap: size === "sm" ? "0.375rem" : "0.5rem",
       }}
       title={username}
     >
       {/* Avatar image or default icon */}
       <div
+        className="rounded-full overflow-hidden flex items-center justify-center flex-shrink-0"
         style={{
-          width: `${dimensions.container}px`,
-          height: `${dimensions.container}px`,
-          borderRadius: "50%",
-          overflow: "hidden",
+          width: `${dimensions.container.mobile}px`,
+          height: `${dimensions.container.mobile}px`,
           background: shouldShowImage ? "transparent" : "var(--slate-200)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexShrink: 0,
         }}
       >
         {shouldShowImage ? (
@@ -64,8 +70,8 @@ export default function UserAvatar({
         ) : (
           // Default silhouette icon (user SVG)
           <svg
-            width={dimensions.icon}
-            height={dimensions.icon}
+            width={dimensions.icon.mobile}
+            height={dimensions.icon.mobile}
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -86,7 +92,7 @@ export default function UserAvatar({
       {showUsername && (
         <span
           style={{
-            fontSize: dimensions.text,
+            fontSize: dimensions.text.mobile,
             fontWeight: "500",
             color: "var(--slate-700)",
           }}
