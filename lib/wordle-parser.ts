@@ -44,9 +44,9 @@ export function parseWordleGrid(input: string): ParsedWordle | null {
       return null;
     }
 
-    // Win/loss logic: Only a loss if it's X/6 (guesses = maxGuesses)
-    // Otherwise (1/6, 2/6, 3/6, 4/6, 5/6), it's a win
-    const won = guesses < maxGuesses;
+    // Win/loss logic: If we successfully parsed a number, it's a win.
+    // A loss would be "X/6" which wouldn't match the digit regex above.
+    const won = true;
 
     // Extract emoji grid lines (skip the first line which contains "Wordle X Y/Z").
     const emojiRegex = /[🟩🟨⬛⬜]/;
