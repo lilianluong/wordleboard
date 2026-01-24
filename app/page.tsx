@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 import AuthGuard from "@/components/AuthGuard";
 import DailyStats from "@/components/DailyStats";
+import Leaderboard from "@/components/Leaderboard";
 
 export const dynamic = "force-dynamic";
 
@@ -142,7 +143,29 @@ export default function Home() {
             </p>
           </div>
 
-          <DailyStats />
+          <div className="mb-12">
+            <h2 style={{
+              fontSize: '1.75rem',
+              marginBottom: '1rem',
+              fontWeight: '600',
+              color: 'var(--slate-700)'
+            }}>
+              Global Leaderboard
+            </h2>
+            <Leaderboard />
+          </div>
+
+          <div>
+            <h2 style={{
+              fontSize: '1.75rem',
+              marginBottom: '1rem',
+              fontWeight: '600',
+              color: 'var(--slate-700)'
+            }}>
+              Today's Results
+            </h2>
+            <DailyStats />
+          </div>
         </main>
       </div>
     </AuthGuard>
