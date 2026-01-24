@@ -89,7 +89,7 @@ export default function NotificationSettings() {
             display: "block",
             fontSize: "0.875rem",
             fontWeight: "600",
-            color: "var(--slate-700)",
+            color: "var(--navy)",
             marginBottom: "0.75rem",
           }}
         >
@@ -98,7 +98,7 @@ export default function NotificationSettings() {
         <p
           style={{
             fontSize: "0.875rem",
-            color: "var(--slate-500)",
+            color: "var(--charcoal)",
           }}
         >
           Push notifications are not supported in this browser.
@@ -123,7 +123,7 @@ export default function NotificationSettings() {
             display: "block",
             fontSize: "0.875rem",
             fontWeight: "600",
-            color: "var(--slate-700)",
+            color: "var(--navy)",
             marginBottom: "0.75rem",
           }}
         >
@@ -132,7 +132,7 @@ export default function NotificationSettings() {
         <p
           style={{
             fontSize: "0.875rem",
-            color: "var(--slate-500)",
+            color: "var(--charcoal)",
             marginBottom: "0.5rem",
           }}
         >
@@ -150,7 +150,7 @@ export default function NotificationSettings() {
           display: "block",
           fontSize: "0.875rem",
           fontWeight: "600",
-          color: "var(--slate-700)",
+          color: "var(--navy)",
           marginBottom: "0.75rem",
         }}
       >
@@ -168,9 +168,9 @@ export default function NotificationSettings() {
             borderRadius: "9999px",
             border: "none",
             cursor: processing ? "not-allowed" : "pointer",
-            background: subscribed ? "var(--blue-soft)" : "var(--slate-300)",
+            background: subscribed ? "var(--purple)" : "var(--charcoal)",
             transition: "background 0.2s",
-            opacity: processing ? 0.6 : 1,
+            opacity: processing ? 0.6 : subscribed ? 1 : 0.3,
           }}
         >
           <span
@@ -183,7 +183,7 @@ export default function NotificationSettings() {
               borderRadius: "9999px",
               background: "white",
               transition: "left 0.2s",
-              boxShadow: "0 1px 3px rgba(0, 0, 0, 0.2)",
+              boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
             }}
           />
         </button>
@@ -191,7 +191,7 @@ export default function NotificationSettings() {
         <span
           style={{
             fontSize: "0.875rem",
-            color: "var(--slate-700)",
+            color: "var(--navy)",
           }}
         >
           {processing
@@ -205,7 +205,7 @@ export default function NotificationSettings() {
       <p
         style={{
           fontSize: "0.75rem",
-          color: "var(--slate-500)",
+          color: "var(--charcoal)",
           marginTop: "0.5rem",
         }}
       >

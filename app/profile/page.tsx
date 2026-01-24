@@ -238,7 +238,7 @@ export default function ProfilePage() {
             <p
               style={{
                 fontSize: "1.0625rem",
-                color: "var(--slate-500)",
+                color: "var(--charcoal)",
                 fontWeight: "400",
               }}
             >
@@ -261,7 +261,7 @@ export default function ProfilePage() {
                   display: "block",
                   fontSize: "0.875rem",
                   fontWeight: "600",
-                  color: "var(--slate-700)",
+                  color: "var(--navy)",
                   marginBottom: "0.75rem",
                 }}
               >
@@ -287,7 +287,7 @@ export default function ProfilePage() {
                     htmlFor="avatar-upload"
                     style={{
                       display: "inline-block",
-                      background: "var(--blue-soft)",
+                      background: "var(--purple)",
                       color: "white",
                       padding: "0.5rem 1rem",
                       borderRadius: "8px",
@@ -295,6 +295,19 @@ export default function ProfilePage() {
                       fontWeight: "600",
                       cursor: uploading ? "not-allowed" : "pointer",
                       opacity: uploading ? 0.6 : 1,
+                      transition: "transform 0.2s ease, box-shadow 0.2s ease",
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!uploading) {
+                        e.currentTarget.style.transform = "translateY(-2px)";
+                        e.currentTarget.style.boxShadow = "0 4px 12px rgba(124, 58, 237, 0.3)";
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!uploading) {
+                        e.currentTarget.style.transform = "translateY(0)";
+                        e.currentTarget.style.boxShadow = "none";
+                      }
                     }}
                   >
                     {uploading ? "Uploading..." : "Upload Image"}
@@ -302,7 +315,7 @@ export default function ProfilePage() {
                   <p
                     style={{
                       fontSize: "0.75rem",
-                      color: "var(--slate-500)",
+                      color: "var(--charcoal)",
                       marginTop: "0.5rem",
                     }}
                   >
@@ -320,7 +333,7 @@ export default function ProfilePage() {
                   display: "block",
                   fontSize: "0.875rem",
                   fontWeight: "600",
-                  color: "var(--slate-700)",
+                  color: "var(--navy)",
                   marginBottom: "0.75rem",
                 }}
               >
@@ -344,7 +357,7 @@ export default function ProfilePage() {
               <p
                 style={{
                   fontSize: "0.75rem",
-                  color: "var(--slate-500)",
+                  color: "var(--charcoal)",
                   marginTop: "0.5rem",
                 }}
               >
@@ -391,15 +404,29 @@ export default function ProfilePage() {
               onClick={handleSave}
               disabled={saving || uploading}
               style={{
-                background: saving ? "var(--slate-400)" : "var(--blue-soft)",
+                background: saving || uploading ? "var(--charcoal)" : "var(--purple)",
                 color: "white",
                 padding: "0.75rem 1.5rem",
-                borderRadius: "8px",
+                borderRadius: "10px",
                 fontSize: "0.9375rem",
-                fontWeight: "600",
+                fontWeight: "700",
                 border: "none",
                 cursor: saving || uploading ? "not-allowed" : "pointer",
-                boxShadow: "0 1px 3px rgba(107, 155, 209, 0.2)",
+                opacity: saving || uploading ? 0.4 : 1,
+                boxShadow: saving || uploading ? "none" : "0 4px 12px rgba(124, 58, 237, 0.3)",
+                transition: "transform 0.2s ease, box-shadow 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                if (!(saving || uploading)) {
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.boxShadow = "0 8px 24px rgba(124, 58, 237, 0.4)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!(saving || uploading)) {
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(124, 58, 237, 0.3)";
+                }
               }}
             >
               {saving ? "Saving..." : "Save Profile"}
