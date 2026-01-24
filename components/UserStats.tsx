@@ -112,7 +112,7 @@ export default function UserStats({ userId }: UserStatsProps) {
       <div style={{
         textAlign: 'center',
         padding: '3rem',
-        color: 'var(--slate-400)',
+        color: 'var(--charcoal)',
         fontSize: '1rem'
       }}>
         Loading...
@@ -129,7 +129,7 @@ export default function UserStats({ userId }: UserStatsProps) {
             display: 'block',
             fontSize: '0.9375rem',
             fontWeight: '600',
-            color: 'var(--slate-700)',
+            color: 'var(--navy)',
             marginBottom: '0.5rem'
           }}
         >
@@ -145,7 +145,7 @@ export default function UserStats({ userId }: UserStatsProps) {
             background: 'var(--surface)',
             padding: '0.75rem 2.5rem 0.75rem 1rem',
             fontSize: '1rem',
-            color: 'var(--slate-600)',
+            color: 'var(--navy)',
             fontWeight: '500',
             cursor: 'pointer',
             appearance: 'none',
@@ -165,11 +165,11 @@ export default function UserStats({ userId }: UserStatsProps) {
       {submissions.length === 0 ? (
         <div style={{
           borderRadius: '12px',
-          background: 'var(--mist)',
+          background: 'var(--paper)',
           border: '1px solid var(--border)',
           padding: '3rem',
           textAlign: 'center',
-          color: 'var(--slate-400)',
+          color: 'var(--charcoal)',
           fontSize: '1rem'
         }}>
           No submissions found for this user
@@ -187,13 +187,13 @@ export default function UserStats({ userId }: UserStatsProps) {
             padding: '1.25rem',
             boxShadow: '0 1px 3px var(--shadow)'
           }}>
-            <p style={{ fontSize: '0.8125rem', color: 'var(--slate-500)', marginBottom: '0.5rem', fontWeight: '500' }}>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--charcoal)', marginBottom: '0.5rem', fontWeight: '500' }}>
               Total Games
             </p>
             <p style={{
               fontSize: '2rem',
               fontWeight: '600',
-              color: 'var(--slate-700)'
+              color: 'var(--navy)'
             }}>
               {stats.totalGames}
             </p>
@@ -205,17 +205,17 @@ export default function UserStats({ userId }: UserStatsProps) {
             padding: '1.25rem',
             boxShadow: '0 1px 3px var(--shadow)'
           }}>
-            <p style={{ fontSize: '0.8125rem', color: 'var(--slate-500)', marginBottom: '0.5rem', fontWeight: '500' }}>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--charcoal)', marginBottom: '0.5rem', fontWeight: '500' }}>
               Win Rate
             </p>
             <p style={{
               fontSize: '2rem',
               fontWeight: '600',
-              color: 'var(--slate-700)'
+              color: 'var(--navy)'
             }}>
               {stats.winRate}%
             </p>
-            <p style={{ fontSize: '0.8125rem', color: 'var(--slate-400)', marginTop: '0.25rem' }}>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--charcoal)', marginTop: '0.25rem' }}>
               {stats.wins}W / {stats.losses}L
             </p>
           </div>
@@ -226,13 +226,13 @@ export default function UserStats({ userId }: UserStatsProps) {
             padding: '1.25rem',
             boxShadow: '0 1px 3px var(--shadow)'
           }}>
-            <p style={{ fontSize: '0.8125rem', color: 'var(--slate-500)', marginBottom: '0.5rem', fontWeight: '500' }}>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--charcoal)', marginBottom: '0.5rem', fontWeight: '500' }}>
               Avg Guesses
             </p>
             <p style={{
               fontSize: '2rem',
               fontWeight: '600',
-              color: 'var(--slate-700)'
+              color: 'var(--navy)'
             }}>
               {stats.averageGuesses}
             </p>
@@ -244,13 +244,13 @@ export default function UserStats({ userId }: UserStatsProps) {
             padding: '1.25rem',
             boxShadow: '0 1px 3px var(--shadow)'
           }}>
-            <p style={{ fontSize: '0.8125rem', color: 'var(--slate-500)', marginBottom: '0.5rem', fontWeight: '500' }}>
+            <p style={{ fontSize: '0.8125rem', color: 'var(--charcoal)', marginBottom: '0.5rem', fontWeight: '500' }}>
               Best / Worst
             </p>
             <p style={{
               fontSize: '2rem',
               fontWeight: '600',
-              color: 'var(--slate-700)'
+              color: 'var(--navy)'
             }}>
               {stats.bestGuesses !== null ? `${stats.bestGuesses} / ${stats.worstGuesses}` : "N/A"}
             </p>
@@ -269,7 +269,7 @@ export default function UserStats({ userId }: UserStatsProps) {
           <h3 style={{
             fontSize: '1.25rem',
             fontWeight: '600',
-            color: 'var(--slate-700)',
+            color: 'var(--navy)',
             marginBottom: '1rem'
           }}>
             Recent Games
@@ -286,14 +286,14 @@ export default function UserStats({ userId }: UserStatsProps) {
                   paddingBottom: '0.625rem'
                 }}
               >
-                <span style={{ fontSize: '0.9375rem', color: 'var(--slate-500)' }}>
+                <span style={{ fontSize: '0.9375rem', color: 'var(--charcoal)' }}>
                   Wordle #{sub.wordle_number}
                 </span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <span style={{
                     fontSize: '0.9375rem',
                     fontWeight: '600',
-                    color: 'var(--slate-700)'
+                    color: 'var(--navy)'
                   }}>
                     {sub.guesses}/6
                   </span>

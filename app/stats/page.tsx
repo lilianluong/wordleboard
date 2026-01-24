@@ -99,7 +99,7 @@ export default function StatsPage() {
             </h1>
             <p style={{
               fontSize: '1.0625rem',
-              color: 'var(--slate-500)',
+              color: 'var(--charcoal)',
               fontWeight: '400'
             }}>
               View detailed stats for each player

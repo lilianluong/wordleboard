@@ -125,16 +125,16 @@ export default function InlineSubmitModal({
                 background: "transparent",
                 border: "none",
                 fontSize: "1.5rem",
-                color: "var(--slate-500)",
+                color: "var(--charcoal)",
                 cursor: "pointer",
                 padding: "0.25rem",
                 lineHeight: "1",
               }}
               onMouseEnter={(e) =>
-                (e.currentTarget.style.color = "var(--slate-700)")
+                (e.currentTarget.style.color = "var(--navy)")
               }
               onMouseLeave={(e) =>
-                (e.currentTarget.style.color = "var(--slate-500)")
+                (e.currentTarget.style.color = "var(--charcoal)")
               }
             >
               ×
@@ -178,33 +178,32 @@ export default function InlineSubmitModal({
               style={{
                 flex: 1,
                 background:
-                  !parsed || loading ? "var(--slate-200)" : "var(--blue-soft)",
+                  !parsed || loading ? "var(--charcoal)" : "var(--purple)",
                 color: "white",
                 padding: "0.875rem",
                 fontSize: "1rem",
-                fontWeight: "600",
+                fontWeight: "700",
                 cursor: !parsed || loading ? "not-allowed" : "pointer",
-                opacity: !parsed || loading ? 0.6 : 1,
+                opacity: !parsed || loading ? 0.4 : 1,
                 boxShadow:
                   !parsed || loading
                     ? "none"
-                    : "0 2px 6px rgba(107, 155, 209, 0.25)",
+                    : "0 4px 12px rgba(124, 58, 237, 0.3)",
                 border: "none",
+                transition: "transform 0.2s ease, box-shadow 0.2s ease"
               }}
               onMouseEnter={(e) => {
                 if (!(!parsed || loading)) {
-                  e.currentTarget.style.background = "var(--mint)";
-                  e.currentTarget.style.transform = "translateY(-1px)";
+                  e.currentTarget.style.transform = "translateY(-2px)";
                   e.currentTarget.style.boxShadow =
-                    "0 4px 12px rgba(107, 155, 209, 0.3)";
+                    "0 8px 24px rgba(124, 58, 237, 0.4)";
                 }
               }}
               onMouseLeave={(e) => {
                 if (!(!parsed || loading)) {
-                  e.currentTarget.style.background = "var(--blue-soft)";
                   e.currentTarget.style.transform = "translateY(0)";
                   e.currentTarget.style.boxShadow =
-                    "0 2px 6px rgba(107, 155, 209, 0.25)";
+                    "0 4px 12px rgba(124, 58, 237, 0.3)";
                 }
               }}
             >
@@ -217,17 +216,17 @@ export default function InlineSubmitModal({
                 fontSize: "1rem",
                 fontWeight: "600",
                 background: "transparent",
-                color: "var(--slate-500)",
+                color: "var(--charcoal)",
                 border: "1.5px solid var(--border)",
                 cursor: "pointer",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "var(--mist)";
-                e.currentTarget.style.color = "var(--slate-700)";
+                e.currentTarget.style.background = "var(--paper)";
+                e.currentTarget.style.color = "var(--navy)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = "transparent";
-                e.currentTarget.style.color = "var(--slate-500)";
+                e.currentTarget.style.color = "var(--charcoal)";
               }}
             >
               Cancel

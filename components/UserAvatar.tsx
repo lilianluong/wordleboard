@@ -53,7 +53,7 @@ export default function UserAvatar({
         style={{
           width: `${dimensions.container.mobile}px`,
           height: `${dimensions.container.mobile}px`,
-          background: shouldShowImage ? "transparent" : "var(--slate-200)",
+          background: shouldShowImage ? "transparent" : "#e5e7eb",
         }}
       >
         {shouldShowImage ? (
@@ -78,11 +78,11 @@ export default function UserAvatar({
           >
             <path
               d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z"
-              fill="var(--slate-400)"
+              fill="var(--charcoal)"
             />
             <path
               d="M12 14C6.477 14 2 18.477 2 24H22C22 18.477 17.523 14 12 14Z"
-              fill="var(--slate-400)"
+              fill="var(--charcoal)"
             />
           </svg>
         )}
@@ -94,7 +94,7 @@ export default function UserAvatar({
           style={{
             fontSize: dimensions.text.mobile,
             fontWeight: "500",
-            color: "var(--slate-700)",
+            color: "var(--navy)",
           }}
         >
           {username}
