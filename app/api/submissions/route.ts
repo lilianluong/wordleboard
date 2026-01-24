@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { parseWordleGrid } from "@/lib/wordle-parser";
 import { generateUniqueUsername } from "@/lib/username-utils";
 import { sendPushNotifications } from "@/lib/push-sender";
@@ -235,6 +236,9 @@ async function sendNotificationsAsync(
 ) {
   try {
     // Setup.
+    // Use admin client to bypass RLS when fetching push subscriptions.
+    const adminSupabase = createAdminClient();
+
     // Fetch submitter username.
     const { data: profile } = await supabase
       .from("user_profiles")
@@ -245,7 +249,7 @@ async function sendNotificationsAsync(
     const username = profile?.username || "Someone";
 
     // Fetch all subscriptions except submitter.
-    const { data: subscriptions } = await supabase
+    const { data: subscriptions } = await adminSupabase
       .from("push_subscriptions")
       .select("*")
       .neq("user_id", submitterId);
@@ -272,7 +276,7 @@ async function sendNotificationsAsync(
     // Assert.
     // Cleanup expired subscriptions.
     if (expired.length > 0) {
-      await supabase.from("push_subscriptions").delete().in("id", expired);
+      await adminSupabase.from("push_subscriptions").delete().in("id", expired);
     }
   } catch (error) {
     console.error("Error sending notifications:", error);
