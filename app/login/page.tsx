@@ -44,41 +44,42 @@ export default function LoginPage() {
       <div
         style={{
           width: '100%',
-          maxWidth: '26rem',
+          maxWidth: '28rem',
           borderRadius: '12px',
           background: 'var(--surface)',
-          padding: '2.5rem',
-          boxShadow: '0 4px 16px var(--shadow)',
-          border: '1px solid var(--border)'
+          padding: '3rem',
+          boxShadow: '0 8px 24px rgba(15, 23, 42, 0.12)',
+          border: '2px solid var(--border)'
         }}
       >
-        <div style={{ marginBottom: '2rem' }}>
+        <div style={{ marginBottom: '2.5rem' }}>
           <h2 style={{
             textAlign: 'center',
-            fontSize: '2.25rem',
-            fontWeight: '600',
-            marginBottom: '0.5rem'
+            fontSize: '2.5rem',
+            fontWeight: '900',
+            marginBottom: '0.75rem'
           }}>
             Wordle Board
           </h2>
           <p style={{
             textAlign: 'center',
-            fontSize: '1rem',
-            color: 'var(--slate-500)'
+            fontSize: '1.0625rem',
+            color: 'var(--charcoal)',
+            fontWeight: '500'
           }}>
             Sign in with your email
           </p>
         </div>
-        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
           <div>
             <label
               htmlFor="email"
               style={{
                 display: 'block',
                 fontSize: '0.9375rem',
-                fontWeight: '600',
-                color: 'var(--slate-700)',
-                marginBottom: '0.5rem'
+                fontWeight: '700',
+                color: 'var(--navy)',
+                marginBottom: '0.625rem'
               }}
             >
               Email address
@@ -94,11 +95,12 @@ export default function LoginPage() {
               style={{
                 display: 'block',
                 width: '100%',
-                border: '1.5px solid var(--border)',
-                background: 'var(--mist)',
-                padding: '0.75rem 1rem',
+                border: '2px solid var(--border)',
+                background: 'var(--paper)',
+                padding: '0.875rem 1.125rem',
                 fontSize: '1rem',
-                color: 'var(--slate-700)'
+                color: 'var(--navy)',
+                fontWeight: '500'
               }}
               placeholder="you@example.com"
             />
@@ -108,11 +110,11 @@ export default function LoginPage() {
             <div
               style={{
                 padding: '1.125rem',
-                borderRadius: '12px',
+                borderRadius: '10px',
                 fontSize: '0.9375rem',
-                background: message.includes("Error") ? 'var(--error-light)' : 'var(--success-light)',
-                color: message.includes("Error") ? 'var(--error)' : 'var(--success)',
-                fontWeight: '500'
+                background: message.includes("Error") ? 'var(--error)' : 'var(--wordle-green)',
+                color: 'white',
+                fontWeight: '600'
               }}
             >
               {message}
@@ -125,28 +127,27 @@ export default function LoginPage() {
               disabled={loading}
               style={{
                 width: '100%',
-                background: loading ? 'var(--slate-200)' : 'var(--blue-soft)',
+                background: loading ? 'var(--charcoal)' : 'var(--purple)',
                 color: 'white',
-                padding: '0.875rem',
-                fontSize: '1rem',
-                fontWeight: '600',
+                padding: '1rem',
+                fontSize: '1.0625rem',
+                fontWeight: '700',
                 cursor: loading ? 'not-allowed' : 'pointer',
-                opacity: loading ? 0.6 : 1,
-                boxShadow: loading ? 'none' : '0 2px 6px rgba(107, 155, 209, 0.25)',
-                border: 'none'
+                opacity: loading ? 0.4 : 1,
+                boxShadow: loading ? 'none' : '0 4px 12px rgba(124, 58, 237, 0.3)',
+                border: 'none',
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease'
               }}
               onMouseEnter={(e) => {
                 if (!loading) {
-                  e.currentTarget.style.background = 'var(--mint)';
-                  e.currentTarget.style.transform = 'translateY(-1px)';
-                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(107, 155, 209, 0.3)';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(124, 58, 237, 0.4)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (!loading) {
-                  e.currentTarget.style.background = 'var(--blue-soft)';
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 2px 6px rgba(107, 155, 209, 0.25)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(124, 58, 237, 0.3)';
                 }
               }}
             >

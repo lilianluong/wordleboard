@@ -12,10 +12,30 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Fetch all submissions.
-    const { data: submissions, error: submissionsError } = await supabase
+    // Get time period from query params.
+    const { searchParams } = new URL(request.url);
+    const period = searchParams.get("period") || "all";
+
+    // Calculate date filter based on period.
+    let dateFilter: Date | null = null;
+    if (period === "week") {
+      dateFilter = new Date();
+      dateFilter.setDate(dateFilter.getDate() - 7);
+    } else if (period === "month") {
+      dateFilter = new Date();
+      dateFilter.setDate(dateFilter.getDate() - 30);
+    }
+
+    // Fetch submissions with optional date filter.
+    let query = supabase
       .from("wordle_submissions")
-      .select("user_id, guesses, won");
+      .select("user_id, guesses, won, submitted_at");
+
+    if (dateFilter) {
+      query = query.gte("submitted_at", dateFilter.toISOString());
+    }
+
+    const { data: submissions, error: submissionsError } = await query;
 
     if (submissionsError) {
       console.error("Error fetching submissions:", submissionsError);

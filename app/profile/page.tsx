@@ -142,8 +142,8 @@ export default function ProfilePage() {
         <nav
           style={{
             background: "var(--surface)",
-            borderBottom: "1px solid var(--border)",
-            boxShadow: "0 1px 3px var(--shadow)",
+            borderBottom: "2px solid var(--border)",
+            boxShadow: "0 2px 8px rgba(15, 23, 42, 0.05)",
           }}
         >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -151,69 +151,79 @@ export default function ProfilePage() {
               <Link
                 href="/"
                 style={{
-                  fontSize: "1.375rem",
-                  fontWeight: "600",
-                  color: "var(--slate-700)",
+                  fontSize: "1.75rem",
+                  fontWeight: "800",
+                  color: "var(--navy)",
                   textDecoration: "none",
-                  letterSpacing: "-0.01em",
+                  letterSpacing: "-0.02em",
                 }}
               >
                 Wordle Board
               </Link>
-              <div className="flex gap-3">
-                <Link
-                  href="/"
-                  style={{
-                    color: "var(--slate-500)",
-                    textDecoration: "none",
-                    fontSize: "0.9375rem",
-                    fontWeight: "500",
-                    padding: "0.5rem 1rem",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "var(--slate-700)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "var(--slate-500)")
-                  }
-                >
-                  Dashboard
-                </Link>
+              <div className="flex items-center gap-1 sm:gap-3">
                 <Link
                   href="/submit"
+                  className="text-sm sm:text-[0.9375rem] px-2.5 sm:px-5"
                   style={{
-                    color: "var(--slate-500)",
+                    background: "var(--purple)",
+                    color: "white",
+                    padding: "0.625rem 1.25rem",
+                    borderRadius: "10px",
                     textDecoration: "none",
-                    fontSize: "0.9375rem",
-                    fontWeight: "500",
-                    padding: "0.5rem 1rem",
+                    fontWeight: "700",
+                    boxShadow: "0 4px 12px rgba(124, 58, 237, 0.25)",
+                    transition: "transform 0.2s ease, box-shadow 0.2s ease",
                   }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "var(--slate-700)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "var(--slate-500)")
-                  }
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-2px)";
+                    e.currentTarget.style.boxShadow =
+                      "0 8px 24px rgba(124, 58, 237, 0.35)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow =
+                      "0 4px 12px rgba(124, 58, 237, 0.25)";
+                  }}
                 >
                   Submit
                 </Link>
                 <Link
                   href="/stats"
+                  className="text-sm sm:text-[0.9375rem] px-2 sm:px-4"
                   style={{
-                    color: "var(--slate-500)",
+                    color: "var(--charcoal)",
                     textDecoration: "none",
-                    fontSize: "0.9375rem",
-                    fontWeight: "500",
-                    padding: "0.5rem 1rem",
+                    fontWeight: "600",
+                    padding: "0.625rem 0.75rem",
+                    transition: "color 0.2s ease",
                   }}
                   onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "var(--slate-700)")
+                    (e.currentTarget.style.color = "var(--purple)")
                   }
                   onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "var(--slate-500)")
+                    (e.currentTarget.style.color = "var(--charcoal)")
                   }
                 >
                   Stats
+                </Link>
+                <Link
+                  href="/profile"
+                  className="text-sm sm:text-[0.9375rem] px-2 sm:px-4"
+                  style={{
+                    color: "var(--charcoal)",
+                    textDecoration: "none",
+                    fontWeight: "600",
+                    padding: "0.625rem 0.75rem",
+                    transition: "color 0.2s ease",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "var(--purple)")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "var(--charcoal)")
+                  }
+                >
+                  Profile
                 </Link>
               </div>
             </div>

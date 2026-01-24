@@ -15,22 +15,22 @@ interface LeaderboardUser {
   averageGuesses: number | null;
 }
 
-type SortMode = "winRate" | "averageGuesses";
+type TimePeriod = "week" | "month" | "all";
 
 export default function Leaderboard() {
   const [users, setUsers] = useState<LeaderboardUser[]>([]);
   const [loading, setLoading] = useState(true);
-  const [sortMode, setSortMode] = useState<SortMode>("winRate");
+  const [period, setPeriod] = useState<TimePeriod>("all");
 
   useEffect(() => {
     fetchLeaderboard();
-  }, []);
+  }, [period]);
 
   const fetchLeaderboard = async () => {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/leaderboard");
+      const response = await fetch(`/api/leaderboard?period=${period}`);
       const data = await response.json();
 
       if (response.ok && data.leaderboard) {
@@ -45,32 +45,23 @@ export default function Leaderboard() {
     setLoading(false);
   };
 
-  // Sort users based on current sort mode.
+  // Sort users by average guesses (ascending, lower is better).
+  // Users with no wins (averageGuesses = null) go to the bottom.
   const sortedUsers = [...users].sort((a, b) => {
-    if (sortMode === "winRate") {
-      // Sort by win rate (descending), then by total games (descending).
-      if (b.winRate !== a.winRate) {
-        return b.winRate - a.winRate;
-      }
-      return b.totalGames - a.totalGames;
-    } else {
-      // Sort by average guesses (ascending, lower is better).
-      // Users with no wins (averageGuesses = null) go to the bottom.
-      if (a.averageGuesses === null && b.averageGuesses === null) {
-        return 0;
-      }
-      if (a.averageGuesses === null) {
-        return 1;
-      }
-      if (b.averageGuesses === null) {
-        return -1;
-      }
-      // Lower average is better, then more games as tiebreaker.
-      if (a.averageGuesses !== b.averageGuesses) {
-        return a.averageGuesses - b.averageGuesses;
-      }
-      return b.totalGames - a.totalGames;
+    if (a.averageGuesses === null && b.averageGuesses === null) {
+      return 0;
     }
+    if (a.averageGuesses === null) {
+      return 1;
+    }
+    if (b.averageGuesses === null) {
+      return -1;
+    }
+    // Lower average is better, then more games as tiebreaker.
+    if (a.averageGuesses !== b.averageGuesses) {
+      return a.averageGuesses - b.averageGuesses;
+    }
+    return b.totalGames - a.totalGames;
   });
 
   if (loading) {
@@ -78,7 +69,7 @@ export default function Leaderboard() {
       <div style={{
         textAlign: 'center',
         padding: '3rem',
-        color: 'var(--slate-400)',
+        color: 'var(--charcoal)',
         fontSize: '1rem'
       }}>
         Loading...
@@ -90,11 +81,11 @@ export default function Leaderboard() {
     return (
       <div style={{
         borderRadius: '12px',
-        background: 'var(--mist)',
+        background: 'var(--paper)',
         border: '1px solid var(--border)',
         padding: '3rem',
         textAlign: 'center',
-        color: 'var(--slate-400)',
+        color: 'var(--charcoal)',
         fontSize: '1rem'
       }}>
         No users found
@@ -108,60 +99,66 @@ export default function Leaderboard() {
       <div style={{
         display: 'flex',
         gap: '0.5rem',
-        borderBottom: '2px solid var(--border)',
-        paddingBottom: '0.5rem'
+        borderBottom: '3px solid var(--border)',
+        paddingBottom: '0',
+        overflowX: 'auto'
       }}>
         <button
-          onClick={() => setSortMode("winRate")}
+          onClick={() => setPeriod("week")}
           style={{
-            padding: '0.5rem 1rem',
+            padding: '0.75rem 1.25rem',
             fontSize: '0.9375rem',
             fontWeight: '600',
-            background: sortMode === "winRate" ? 'var(--blue-soft)' : 'transparent',
-            color: sortMode === "winRate" ? 'white' : 'var(--slate-500)',
+            background: 'transparent',
+            color: period === "week" ? 'var(--purple)' : 'var(--charcoal)',
             border: 'none',
-            borderRadius: '8px',
+            borderRadius: '0',
+            borderBottom: period === "week" ? '3px solid var(--purple)' : '3px solid transparent',
             cursor: 'pointer',
-            transition: 'all 0.2s ease'
-          }}
-          onMouseEnter={(e) => {
-            if (sortMode !== "winRate") {
-              e.currentTarget.style.background = 'var(--mist)';
-            }
-          }}
-          onMouseLeave={(e) => {
-            if (sortMode !== "winRate") {
-              e.currentTarget.style.background = 'transparent';
-            }
+            transition: 'color 0.2s ease, border-color 0.2s ease',
+            marginBottom: '-3px',
+            whiteSpace: 'nowrap'
           }}
         >
-          Win Rate
+          Last Week
         </button>
         <button
-          onClick={() => setSortMode("averageGuesses")}
+          onClick={() => setPeriod("month")}
           style={{
-            padding: '0.5rem 1rem',
+            padding: '0.75rem 1.25rem',
             fontSize: '0.9375rem',
             fontWeight: '600',
-            background: sortMode === "averageGuesses" ? 'var(--blue-soft)' : 'transparent',
-            color: sortMode === "averageGuesses" ? 'white' : 'var(--slate-500)',
+            background: 'transparent',
+            color: period === "month" ? 'var(--purple)' : 'var(--charcoal)',
             border: 'none',
-            borderRadius: '8px',
+            borderRadius: '0',
+            borderBottom: period === "month" ? '3px solid var(--purple)' : '3px solid transparent',
             cursor: 'pointer',
-            transition: 'all 0.2s ease'
-          }}
-          onMouseEnter={(e) => {
-            if (sortMode !== "averageGuesses") {
-              e.currentTarget.style.background = 'var(--mist)';
-            }
-          }}
-          onMouseLeave={(e) => {
-            if (sortMode !== "averageGuesses") {
-              e.currentTarget.style.background = 'transparent';
-            }
+            transition: 'color 0.2s ease, border-color 0.2s ease',
+            marginBottom: '-3px',
+            whiteSpace: 'nowrap'
           }}
         >
-          Average Guesses
+          Last Month
+        </button>
+        <button
+          onClick={() => setPeriod("all")}
+          style={{
+            padding: '0.75rem 1.25rem',
+            fontSize: '0.9375rem',
+            fontWeight: '600',
+            background: 'transparent',
+            color: period === "all" ? 'var(--purple)' : 'var(--charcoal)',
+            border: 'none',
+            borderRadius: '0',
+            borderBottom: period === "all" ? '3px solid var(--purple)' : '3px solid transparent',
+            cursor: 'pointer',
+            transition: 'color 0.2s ease, border-color 0.2s ease',
+            marginBottom: '-3px',
+            whiteSpace: 'nowrap'
+          }}
+        >
+          All Time
         </button>
       </div>
 
@@ -170,27 +167,26 @@ export default function Leaderboard() {
         borderRadius: '12px',
         border: '1px solid var(--border)',
         background: 'var(--surface)',
-        overflow: 'hidden',
-        boxShadow: '0 1px 3px var(--shadow)'
+        overflow: 'auto',
+        boxShadow: '0 8px 24px rgba(15, 23, 42, 0.08)'
       }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '60px 1fr 120px 120px',
-          gap: '1rem',
-          padding: '1rem 1.5rem',
-          background: 'var(--mist)',
-          borderBottom: '1px solid var(--border)',
+          gridTemplateColumns: '80px minmax(140px, 1fr) 120px 100px',
+          gap: '0.75rem',
+          padding: '1rem 1.25rem',
+          background: 'var(--paper)',
+          borderBottom: '2px solid var(--border)',
           fontSize: '0.8125rem',
           fontWeight: '600',
-          color: 'var(--slate-500)',
+          color: 'var(--charcoal)',
           textTransform: 'uppercase',
-          letterSpacing: '0.05em'
+          letterSpacing: '0.05em',
+          minWidth: '520px'
         }}>
           <div>Rank</div>
           <div>Player</div>
-          <div style={{ textAlign: 'right' }}>
-            {sortMode === "winRate" ? "Win Rate" : "Avg Guesses"}
-          </div>
+          <div style={{ textAlign: 'right' }}>Avg Guesses</div>
           <div style={{ textAlign: 'right' }}>Games</div>
         </div>
 
@@ -199,16 +195,22 @@ export default function Leaderboard() {
             key={user.userId}
             style={{
               display: 'grid',
-              gridTemplateColumns: '60px 1fr 120px 120px',
-              gap: '1rem',
-              padding: '1rem 1.5rem',
+              gridTemplateColumns: '80px minmax(140px, 1fr) 120px 100px',
+              gap: '0.75rem',
+              padding: '1.25rem 1.25rem',
               borderBottom: index < sortedUsers.length - 1 ? '1px solid var(--border)' : 'none',
-              transition: 'background 0.2s ease'
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease',
+              cursor: 'pointer',
+              minWidth: '520px'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'var(--mist)';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(15, 23, 42, 0.08)';
+              e.currentTarget.style.background = 'var(--paper)';
             }}
             onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
               e.currentTarget.style.background = 'transparent';
             }}
           >
@@ -216,12 +218,49 @@ export default function Leaderboard() {
             <div style={{
               display: 'flex',
               alignItems: 'center',
-              fontSize: '1.125rem',
-              fontWeight: '600',
-              color: index === 0 ? 'var(--blue-soft)' : 'var(--slate-600)'
+              justifyContent: 'center'
             }}>
-              {index === 0 && <span style={{ marginRight: '0.25rem' }}>🏆</span>}
-              {index + 1}
+              {index === 0 ? (
+                <div style={{
+                  width: '80px',
+                  height: '80px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '2.5rem',
+                  boxShadow: '0 8px 24px rgba(251, 191, 36, 0.4)',
+                  border: '3px solid white'
+                }}>
+                  🏆
+                </div>
+              ) : index === 1 || index === 2 ? (
+                <div style={{
+                  width: '70px',
+                  height: '70px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '2rem',
+                  fontWeight: '900',
+                  color: 'white',
+                  boxShadow: '0 6px 20px rgba(124, 58, 237, 0.3)',
+                  border: '3px solid white'
+                }}>
+                  {index + 1}
+                </div>
+              ) : (
+                <div style={{
+                  fontSize: '2rem',
+                  fontWeight: '900',
+                  color: 'var(--charcoal)'
+                }}>
+                  {index + 1}
+                </div>
+              )}
             </div>
 
             {/* Player */}
@@ -237,7 +276,7 @@ export default function Leaderboard() {
               />
             </div>
 
-            {/* Primary stat (win rate or avg guesses) */}
+            {/* Average guesses stat */}
             <div style={{
               display: 'flex',
               flexDirection: 'column',
@@ -245,28 +284,21 @@ export default function Leaderboard() {
               justifyContent: 'center'
             }}>
               <span style={{
-                fontSize: '1.25rem',
-                fontWeight: '600',
-                color: 'var(--slate-700)'
+                fontSize: '3rem',
+                fontWeight: '900',
+                color: 'var(--navy)',
+                lineHeight: '1'
               }}>
-                {sortMode === "winRate"
-                  ? `${user.winRate.toFixed(1)}%`
-                  : user.averageGuesses !== null
+                {user.averageGuesses !== null
                   ? user.averageGuesses.toFixed(2)
                   : "N/A"}
               </span>
-              {sortMode === "winRate" && (
+              {user.averageGuesses !== null && (
                 <span style={{
-                  fontSize: '0.75rem',
-                  color: 'var(--slate-400)'
-                }}>
-                  {user.wins}W / {user.losses}L
-                </span>
-              )}
-              {sortMode === "averageGuesses" && user.averageGuesses !== null && (
-                <span style={{
-                  fontSize: '0.75rem',
-                  color: 'var(--slate-400)'
+                  fontSize: '0.8125rem',
+                  color: 'var(--charcoal)',
+                  fontWeight: '500',
+                  marginTop: '0.25rem'
                 }}>
                   {user.wins} wins
                 </span>
@@ -278,9 +310,9 @@ export default function Leaderboard() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'flex-end',
-              fontSize: '1rem',
-              fontWeight: '500',
-              color: 'var(--slate-600)'
+              fontSize: '1.5rem',
+              fontWeight: '700',
+              color: 'var(--navy)'
             }}>
               {user.totalGames}
             </div>

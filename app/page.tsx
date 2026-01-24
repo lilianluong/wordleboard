@@ -35,19 +35,19 @@ export default function Home() {
       <div className="min-h-screen" style={{ background: 'var(--background)' }}>
         <nav style={{
           background: 'var(--surface)',
-          borderBottom: '1px solid var(--border)',
-          boxShadow: '0 1px 3px var(--shadow)'
+          borderBottom: '2px solid var(--border)',
+          boxShadow: '0 2px 8px rgba(15, 23, 42, 0.05)'
         }}>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="flex h-16 sm:h-20 items-center justify-between">
               <Link
                 href="/"
-                className="text-lg sm:text-[1.375rem]"
+                className="text-lg sm:text-[1.75rem]"
                 style={{
-                  fontWeight: '600',
-                  color: 'var(--slate-700)',
+                  fontWeight: '800',
+                  color: 'var(--navy)',
                   textDecoration: 'none',
-                  letterSpacing: '-0.01em'
+                  letterSpacing: '-0.02em'
                 }}
               >
                 Wordle Board
@@ -57,21 +57,22 @@ export default function Home() {
                   href="/submit"
                   className="text-sm sm:text-[0.9375rem] px-2.5 sm:px-5"
                   style={{
-                    background: 'var(--blue-soft)',
+                    background: 'var(--purple)',
                     color: 'white',
-                    padding: '0.4rem 0.75rem',
-                    borderRadius: '8px',
+                    padding: '0.625rem 1.25rem',
+                    borderRadius: '10px',
                     textDecoration: 'none',
-                    fontWeight: '600',
-                    boxShadow: '0 1px 3px rgba(107, 155, 209, 0.2)',
+                    fontWeight: '700',
+                    boxShadow: '0 4px 12px rgba(124, 58, 237, 0.25)',
+                    transition: 'transform 0.2s ease, box-shadow 0.2s ease'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'var(--mint)';
-                    e.currentTarget.style.boxShadow = '0 2px 6px rgba(107, 155, 209, 0.3)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(124, 58, 237, 0.35)';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'var(--blue-soft)';
-                    e.currentTarget.style.boxShadow = '0 1px 3px rgba(107, 155, 209, 0.2)';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(124, 58, 237, 0.25)';
                   }}
                 >
                   Submit
@@ -80,13 +81,14 @@ export default function Home() {
                   href="/stats"
                   className="text-sm sm:text-[0.9375rem] px-2 sm:px-4"
                   style={{
-                    color: 'var(--slate-500)',
+                    color: 'var(--charcoal)',
                     textDecoration: 'none',
-                    fontWeight: '500',
-                    padding: '0.4rem 0.5rem'
+                    fontWeight: '600',
+                    padding: '0.625rem 0.75rem',
+                    transition: 'color 0.2s ease'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--slate-700)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--slate-500)'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--purple)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--charcoal)'}
                 >
                   Stats
                 </Link>
@@ -94,13 +96,14 @@ export default function Home() {
                   href="/profile"
                   className="text-sm sm:text-[0.9375rem] px-2 sm:px-4"
                   style={{
-                    color: 'var(--slate-500)',
+                    color: 'var(--charcoal)',
                     textDecoration: 'none',
-                    fontWeight: '500',
-                    padding: '0.4rem 0.5rem'
+                    fontWeight: '600',
+                    padding: '0.625rem 0.75rem',
+                    transition: 'color 0.2s ease'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--slate-700)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--slate-500)'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--purple)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--charcoal)'}
                 >
                   Profile
                 </Link>
@@ -109,14 +112,15 @@ export default function Home() {
                     onClick={handleSignOut}
                     className="text-xs sm:text-sm px-2 sm:px-4"
                     style={{
-                      color: 'var(--slate-500)',
-                      fontWeight: '500',
+                      color: 'var(--charcoal)',
+                      fontWeight: '600',
                       background: 'transparent',
                       border: 'none',
-                      padding: '0.4rem 0.5rem'
+                      padding: '0.625rem 0.75rem',
+                      transition: 'color 0.2s ease'
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--slate-700)'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--slate-500)'}
+                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--purple)'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--charcoal)'}
                   >
                     Sign Out
                   </button>
@@ -127,44 +131,28 @@ export default function Home() {
         </nav>
 
         <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="mb-10">
-            <h1 style={{
-              fontSize: '2.5rem',
-              marginBottom: '0.5rem'
-            }}>
-              Dashboard
-            </h1>
-            <p style={{
-              fontSize: '1.0625rem',
-              color: 'var(--slate-500)',
-              fontWeight: '400'
-            }}>
-              See how everyone did on today's Wordle
-            </p>
-          </div>
-
           <div className="mb-12">
             <h2 style={{
-              fontSize: '1.75rem',
-              marginBottom: '1rem',
-              fontWeight: '600',
-              color: 'var(--slate-700)'
-            }}>
-              Global Leaderboard
-            </h2>
-            <Leaderboard />
-          </div>
-
-          <div>
-            <h2 style={{
-              fontSize: '1.75rem',
-              marginBottom: '1rem',
-              fontWeight: '600',
-              color: 'var(--slate-700)'
+              fontSize: '2rem',
+              marginBottom: '1.5rem',
+              fontWeight: '800',
+              color: 'var(--navy)'
             }}>
               Today's Results
             </h2>
             <DailyStats />
+          </div>
+
+          <div>
+            <h2 style={{
+              fontSize: '2rem',
+              marginBottom: '1.5rem',
+              fontWeight: '800',
+              color: 'var(--navy)'
+            }}>
+              Global Leaderboard
+            </h2>
+            <Leaderboard />
           </div>
         </main>
       </div>

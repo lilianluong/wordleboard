@@ -148,7 +148,7 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
       <div style={{
         textAlign: 'center',
         padding: '3rem',
-        color: 'var(--slate-400)',
+        color: 'var(--charcoal)',
         fontSize: '1rem'
       }}>
         Loading...
@@ -201,17 +201,18 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
             setTargetWordle(e.target.value ? parseInt(e.target.value) : null)
           }
           style={{
-            border: '1.5px solid var(--border)',
+            border: '2px solid var(--border)',
             background: 'var(--surface)',
-            padding: '0.5rem 2.5rem 0.5rem 0.875rem',
+            padding: '0.625rem 2.5rem 0.625rem 1rem',
             fontSize: '0.9375rem',
-            color: 'var(--slate-600)',
-            fontWeight: '500',
+            color: 'var(--navy)',
+            fontWeight: '600',
             cursor: 'pointer',
             appearance: 'none',
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%235f738c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%230f172a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
             backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'right 0.75rem center'
+            backgroundPosition: 'right 0.75rem center',
+            borderRadius: '10px'
           }}
         >
           {availableWordles.map((wordleNum) => (
@@ -225,29 +226,29 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
       {shouldShowCTA && (
         <div style={{
           borderRadius: '12px',
-          background: 'linear-gradient(135deg, var(--blue-soft) 0%, var(--mint) 100%)',
-          padding: '1.5rem',
-          boxShadow: '0 4px 12px rgba(107, 155, 209, 0.3)',
-          border: '1px solid rgba(107, 155, 209, 0.2)',
+          background: 'linear-gradient(135deg, var(--purple) 0%, var(--gold) 100%)',
+          padding: '2rem',
+          boxShadow: '0 8px 24px rgba(124, 58, 237, 0.3)',
+          border: 'none',
           display: 'flex',
           flexDirection: 'column',
-          gap: '1rem',
+          gap: '1.25rem',
           alignItems: 'center',
           textAlign: 'center'
         }}>
           <div>
             <h3 style={{
-              fontSize: '1.25rem',
-              fontWeight: '600',
+              fontSize: '1.5rem',
+              fontWeight: '800',
               color: 'white',
               marginBottom: '0.5rem'
             }}>
               Haven't submitted today's Wordle yet?
             </h3>
             <p style={{
-              fontSize: '0.9375rem',
-              color: 'rgba(255, 255, 255, 0.9)',
-              fontWeight: '400'
+              fontSize: '1rem',
+              color: 'rgba(255, 255, 255, 0.95)',
+              fontWeight: '500'
             }}>
               Submit your result for Wordle #{todayWordle} now!
             </p>
@@ -256,22 +257,22 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
             onClick={() => setShowSubmitModal(true)}
             style={{
               background: 'white',
-              color: 'var(--blue-soft)',
-              padding: '0.75rem 2rem',
+              color: 'var(--purple)',
+              padding: '0.875rem 2.5rem',
               fontSize: '1rem',
-              fontWeight: '600',
+              fontWeight: '700',
               border: 'none',
               cursor: 'pointer',
-              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
-              transition: 'all 0.2s ease'
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
+              transition: 'transform 0.2s ease, box-shadow 0.2s ease'
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
+              e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.3)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.15)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
             }}
           >
             Submit Today's Wordle
@@ -282,11 +283,11 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
       {userSubmissions.length === 0 ? (
         <div style={{
           borderRadius: '12px',
-          background: 'var(--mist)',
+          background: 'var(--paper)',
           border: '1px solid var(--border)',
           padding: '3rem',
           textAlign: 'center',
-          color: 'var(--slate-400)',
+          color: 'var(--charcoal)',
           fontSize: '1rem'
         }}>
           No submissions yet for this Wordle
@@ -294,33 +295,33 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
       ) : (
         <div style={{
           display: 'grid',
-          gap: '1rem',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))'
+          gap: '1.25rem',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))'
         }}>
           {userSubmissions.map((submission) => (
             <div
               key={submission.id}
               style={{
-                borderRadius: '12px',
-                border: '1px solid var(--border)',
+                clipPath: 'polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%)',
+                border: '2px solid var(--border)',
                 background: 'var(--surface)',
-                padding: '1.25rem',
-                boxShadow: '0 1px 3px var(--shadow)',
-                transition: 'all 0.2s ease'
+                padding: '1.5rem',
+                boxShadow: '0 2px 8px rgba(15, 23, 42, 0.08)',
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease'
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 4px 12px rgba(45, 55, 72, 0.08)';
+                e.currentTarget.style.transform = 'translateY(-4px)';
+                e.currentTarget.style.boxShadow = '0 8px 24px rgba(15, 23, 42, 0.12)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 1px 3px var(--shadow)';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(15, 23, 42, 0.08)';
               }}
             >
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem' }}>
                   <div style={{ flex: '1', minWidth: '0' }}>
-                    <div style={{ marginBottom: '0.25rem' }}>
+                    <div style={{ marginBottom: '0.5rem' }}>
                       <UserAvatar
                         username={submission.user?.username || submission.user?.email || "Anonymous"}
                         avatarUrl={submission.user?.profile_picture_url}
@@ -328,9 +329,9 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
                       />
                     </div>
                     <p style={{
-                      fontSize: '1.625rem',
-                      fontWeight: '600',
-                      color: 'var(--blue-soft)',
+                      fontSize: '2.5rem',
+                      fontWeight: '900',
+                      color: 'var(--navy)',
                       lineHeight: '1'
                     }}>
                       {submission.guesses}/6
@@ -339,12 +340,14 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
                   <div
                     style={{
                       borderRadius: '8px',
-                      padding: '0.375rem 0.75rem',
-                      fontSize: '0.8125rem',
-                      fontWeight: '600',
-                      background: submission.won ? 'var(--success-light)' : 'var(--error-light)',
-                      color: submission.won ? 'var(--success)' : 'var(--error)',
-                      flexShrink: '0'
+                      padding: '0.5rem 1rem',
+                      fontSize: '0.875rem',
+                      fontWeight: '700',
+                      background: submission.won ? 'var(--wordle-green)' : 'var(--error)',
+                      color: 'white',
+                      flexShrink: '0',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.025em'
                     }}
                   >
                     {submission.won ? "Won" : "Lost"}
@@ -352,15 +355,16 @@ export default function DailyStats({ wordleNumber }: DailyStatsProps) {
                 </div>
                 {submission.guesses_grid && (
                   <div style={{
-                    background: 'var(--mist)',
-                    padding: '0.75rem',
+                    background: 'var(--paper)',
+                    padding: '0.875rem',
                     borderRadius: '8px',
                     textAlign: 'center',
                     whiteSpace: 'pre',
                     fontFamily: 'Consolas, Monaco, "Courier New", monospace',
                     fontSize: '1.25rem',
                     lineHeight: '1.4',
-                    letterSpacing: '0.05em'
+                    letterSpacing: '0.05em',
+                    border: '1px solid var(--border)'
                   }}>
                     {submission.guesses_grid}
                   </div>

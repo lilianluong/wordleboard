@@ -74,63 +74,75 @@ export default function SubmitPage() {
       <div className="min-h-screen" style={{ background: 'var(--background)' }}>
         <nav style={{
           background: 'var(--surface)',
-          borderBottom: '1px solid var(--border)',
-          boxShadow: '0 1px 3px var(--shadow)'
+          borderBottom: '2px solid var(--border)',
+          boxShadow: '0 2px 8px rgba(15, 23, 42, 0.05)'
         }}>
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex h-20 items-center justify-between">
               <Link
                 href="/"
                 style={{
-                  fontSize: '1.375rem',
-                  fontWeight: '600',
-                  color: 'var(--slate-700)',
+                  fontSize: '1.75rem',
+                  fontWeight: '800',
+                  color: 'var(--navy)',
                   textDecoration: 'none',
-                  letterSpacing: '-0.01em'
+                  letterSpacing: '-0.02em'
                 }}
               >
                 Wordle Board
               </Link>
-              <div className="flex gap-3">
+              <div className="flex items-center gap-1 sm:gap-3">
                 <Link
-                  href="/"
+                  href="/submit"
+                  className="text-sm sm:text-[0.9375rem] px-2.5 sm:px-5"
                   style={{
-                    color: 'var(--slate-500)',
+                    background: 'var(--purple)',
+                    color: 'white',
+                    padding: '0.625rem 1.25rem',
+                    borderRadius: '10px',
                     textDecoration: 'none',
-                    fontSize: '0.9375rem',
-                    fontWeight: '500',
-                    padding: '0.5rem 1rem'
+                    fontWeight: '700',
+                    boxShadow: '0 4px 12px rgba(124, 58, 237, 0.25)',
+                    transition: 'transform 0.2s ease, box-shadow 0.2s ease'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--slate-700)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--slate-500)'}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(124, 58, 237, 0.35)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(124, 58, 237, 0.25)';
+                  }}
                 >
-                  Dashboard
+                  Submit
                 </Link>
                 <Link
                   href="/stats"
+                  className="text-sm sm:text-[0.9375rem] px-2 sm:px-4"
                   style={{
-                    color: 'var(--slate-500)',
+                    color: 'var(--charcoal)',
                     textDecoration: 'none',
-                    fontSize: '0.9375rem',
-                    fontWeight: '500',
-                    padding: '0.5rem 1rem'
+                    fontWeight: '600',
+                    padding: '0.625rem 0.75rem',
+                    transition: 'color 0.2s ease'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--slate-700)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--slate-500)'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--purple)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--charcoal)'}
                 >
                   Stats
                 </Link>
                 <Link
                   href="/profile"
+                  className="text-sm sm:text-[0.9375rem] px-2 sm:px-4"
                   style={{
-                    color: 'var(--slate-500)',
+                    color: 'var(--charcoal)',
                     textDecoration: 'none',
-                    fontSize: '0.9375rem',
-                    fontWeight: '500',
-                    padding: '0.5rem 1rem'
+                    fontWeight: '600',
+                    padding: '0.625rem 0.75rem',
+                    transition: 'color 0.2s ease'
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--slate-700)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--slate-500)'}
+                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--purple)'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--charcoal)'}
                 >
                   Profile
                 </Link>
@@ -143,13 +155,14 @@ export default function SubmitPage() {
           <div style={{
             borderRadius: '12px',
             background: 'var(--surface)',
-            padding: '2rem',
-            boxShadow: '0 2px 8px var(--shadow)',
-            border: '1px solid var(--border)'
+            padding: '2.5rem',
+            boxShadow: '0 8px 24px rgba(15, 23, 42, 0.08)',
+            border: '2px solid var(--border)'
           }}>
             <h1 style={{
-              fontSize: '2rem',
-              marginBottom: '1.5rem'
+              fontSize: '2.5rem',
+              marginBottom: '2rem',
+              fontWeight: '800'
             }}>
               Submit Wordle Result
             </h1>
@@ -159,12 +172,12 @@ export default function SubmitPage() {
             {message && (
               <div
                 style={{
-                  marginTop: '1rem',
-                  padding: '1rem',
-                  borderRadius: '8px',
-                  background: message.type === "success" ? 'var(--success-light)' : 'var(--error-light)',
-                  color: message.type === "success" ? 'var(--success)' : 'var(--error)',
-                  fontWeight: '500',
+                  marginTop: '1.25rem',
+                  padding: '1.125rem',
+                  borderRadius: '10px',
+                  background: message.type === "success" ? 'var(--wordle-green)' : 'var(--error)',
+                  color: 'white',
+                  fontWeight: '600',
                   fontSize: '0.9375rem'
                 }}
               >
@@ -172,34 +185,33 @@ export default function SubmitPage() {
               </div>
             )}
 
-            <div style={{ marginTop: '1.5rem' }}>
+            <div style={{ marginTop: '2rem' }}>
               <button
                 onClick={handleSubmit}
                 disabled={!parsed || loading}
                 style={{
                   width: '100%',
-                  background: (!parsed || loading) ? 'var(--slate-200)' : 'var(--blue-soft)',
+                  background: (!parsed || loading) ? 'var(--charcoal)' : 'var(--purple)',
                   color: 'white',
-                  padding: '0.875rem',
-                  fontSize: '1rem',
-                  fontWeight: '600',
+                  padding: '1rem',
+                  fontSize: '1.0625rem',
+                  fontWeight: '700',
                   cursor: (!parsed || loading) ? 'not-allowed' : 'pointer',
-                  opacity: (!parsed || loading) ? 0.6 : 1,
-                  boxShadow: (!parsed || loading) ? 'none' : '0 2px 6px rgba(107, 155, 209, 0.25)',
-                  border: 'none'
+                  opacity: (!parsed || loading) ? 0.4 : 1,
+                  boxShadow: (!parsed || loading) ? 'none' : '0 4px 12px rgba(124, 58, 237, 0.3)',
+                  border: 'none',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease'
                 }}
                 onMouseEnter={(e) => {
                   if (!(!parsed || loading)) {
-                    e.currentTarget.style.background = 'var(--mint)';
-                    e.currentTarget.style.transform = 'translateY(-1px)';
-                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(107, 155, 209, 0.3)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(124, 58, 237, 0.4)';
                   }
                 }}
                 onMouseLeave={(e) => {
                   if (!(!parsed || loading)) {
-                    e.currentTarget.style.background = 'var(--blue-soft)';
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 2px 6px rgba(107, 155, 209, 0.25)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(124, 58, 237, 0.3)';
                   }
                 }}
               >
