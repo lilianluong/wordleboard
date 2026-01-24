@@ -12,6 +12,7 @@ export const dynamic = "force-dynamic";
 
 export default function Home() {
   const [user, setUser] = useState<User | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -23,6 +24,14 @@ export default function Home() {
     };
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = () => setMenuOpen(false);
+    if (menuOpen) {
+      document.addEventListener('click', handleClickOutside);
+      return () => document.removeEventListener('click', handleClickOutside);
+    }
+  }, [menuOpen]);
 
   const handleSignOut = async () => {
     const supabase = createClient();
@@ -52,17 +61,17 @@ export default function Home() {
               >
                 Wordle Board
               </Link>
-              <div className="flex items-center gap-1 sm:gap-3">
+              <div className="flex items-center gap-3">
                 <Link
                   href="/submit"
-                  className="text-sm sm:text-[0.9375rem] px-2.5 sm:px-5"
                   style={{
                     background: 'var(--purple)',
                     color: 'white',
-                    padding: '0.625rem 1.25rem',
-                    borderRadius: '10px',
+                    padding: '0.5rem 1rem',
+                    borderRadius: '8px',
                     textDecoration: 'none',
                     fontWeight: '700',
+                    fontSize: '0.875rem',
                     boxShadow: '0 4px 12px rgba(124, 58, 237, 0.25)',
                     transition: 'transform 0.2s ease, box-shadow 0.2s ease'
                   }}
@@ -77,54 +86,128 @@ export default function Home() {
                 >
                   Submit
                 </Link>
-                <Link
-                  href="/stats"
-                  className="text-sm sm:text-[0.9375rem] px-2 sm:px-4"
-                  style={{
-                    color: 'var(--charcoal)',
-                    textDecoration: 'none',
-                    fontWeight: '600',
-                    padding: '0.625rem 0.75rem',
-                    transition: 'color 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--purple)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--charcoal)'}
-                >
-                  Stats
-                </Link>
-                <Link
-                  href="/profile"
-                  className="text-sm sm:text-[0.9375rem] px-2 sm:px-4"
-                  style={{
-                    color: 'var(--charcoal)',
-                    textDecoration: 'none',
-                    fontWeight: '600',
-                    padding: '0.625rem 0.75rem',
-                    transition: 'color 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = 'var(--purple)'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = 'var(--charcoal)'}
-                >
-                  Profile
-                </Link>
-                {user && (
+
+                {/* Hamburger menu */}
+                <div style={{ position: 'relative' }}>
                   <button
-                    onClick={handleSignOut}
-                    className="text-xs sm:text-sm px-2 sm:px-4"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setMenuOpen(!menuOpen);
+                    }}
                     style={{
-                      color: 'var(--charcoal)',
-                      fontWeight: '600',
                       background: 'transparent',
                       border: 'none',
-                      padding: '0.625rem 0.75rem',
-                      transition: 'color 0.2s ease'
+                      padding: '0.5rem',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '4px',
+                      width: '28px',
+                      height: '28px',
+                      justifyContent: 'center'
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.color = 'var(--purple)'}
-                    onMouseLeave={(e) => e.currentTarget.style.color = 'var(--charcoal)'}
                   >
-                    Sign Out
+                    <span style={{
+                      width: '20px',
+                      height: '2px',
+                      background: 'var(--navy)',
+                      borderRadius: '2px',
+                      transition: 'all 0.2s ease'
+                    }} />
+                    <span style={{
+                      width: '20px',
+                      height: '2px',
+                      background: 'var(--navy)',
+                      borderRadius: '2px',
+                      transition: 'all 0.2s ease'
+                    }} />
+                    <span style={{
+                      width: '20px',
+                      height: '2px',
+                      background: 'var(--navy)',
+                      borderRadius: '2px',
+                      transition: 'all 0.2s ease'
+                    }} />
                   </button>
-                )}
+
+                  {/* Dropdown menu */}
+                  {menuOpen && (
+                    <div style={{
+                      position: 'absolute',
+                      top: 'calc(100% + 0.5rem)',
+                      right: 0,
+                      background: 'var(--surface)',
+                      border: '2px solid var(--border)',
+                      borderRadius: '8px',
+                      boxShadow: '0 8px 24px rgba(15, 23, 42, 0.15)',
+                      minWidth: '160px',
+                      zIndex: 50,
+                      overflow: 'hidden'
+                    }}>
+                      <Link
+                        href="/stats"
+                        onClick={() => setMenuOpen(false)}
+                        style={{
+                          display: 'block',
+                          padding: '0.75rem 1rem',
+                          color: 'var(--navy)',
+                          textDecoration: 'none',
+                          fontWeight: '600',
+                          fontSize: '0.875rem',
+                          transition: 'background 0.2s ease'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = 'var(--paper)'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                      >
+                        Stats
+                      </Link>
+                      <Link
+                        href="/profile"
+                        onClick={() => setMenuOpen(false)}
+                        style={{
+                          display: 'block',
+                          padding: '0.75rem 1rem',
+                          color: 'var(--navy)',
+                          textDecoration: 'none',
+                          fontWeight: '600',
+                          fontSize: '0.875rem',
+                          borderTop: '1px solid var(--border)',
+                          transition: 'background 0.2s ease'
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = 'var(--paper)'}
+                        onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                      >
+                        Profile
+                      </Link>
+                      {user && (
+                        <button
+                          onClick={() => {
+                            setMenuOpen(false);
+                            handleSignOut();
+                          }}
+                          style={{
+                            display: 'block',
+                            width: '100%',
+                            textAlign: 'left',
+                            padding: '0.75rem 1rem',
+                            color: 'var(--navy)',
+                            fontWeight: '600',
+                            fontSize: '0.875rem',
+                            background: 'transparent',
+                            border: 'none',
+                            borderTop: '1px solid var(--border)',
+                            cursor: 'pointer',
+                            transition: 'background 0.2s ease'
+                          }}
+                          onMouseEnter={(e) => e.currentTarget.style.background = 'var(--paper)'}
+                          onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                        >
+                          Sign Out
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
