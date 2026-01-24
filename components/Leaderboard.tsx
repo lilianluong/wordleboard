@@ -105,9 +105,10 @@ export default function Leaderboard() {
       }}>
         <button
           onClick={() => setPeriod("week")}
+          className="tab-button"
           style={{
-            padding: '0.75rem 1.25rem',
-            fontSize: '0.9375rem',
+            padding: '0.625rem 0.875rem',
+            fontSize: '0.875rem',
             fontWeight: '600',
             background: 'transparent',
             color: period === "week" ? 'var(--purple)' : 'var(--charcoal)',
@@ -124,9 +125,10 @@ export default function Leaderboard() {
         </button>
         <button
           onClick={() => setPeriod("month")}
+          className="tab-button"
           style={{
-            padding: '0.75rem 1.25rem',
-            fontSize: '0.9375rem',
+            padding: '0.625rem 0.875rem',
+            fontSize: '0.875rem',
             fontWeight: '600',
             background: 'transparent',
             color: period === "month" ? 'var(--purple)' : 'var(--charcoal)',
@@ -143,9 +145,10 @@ export default function Leaderboard() {
         </button>
         <button
           onClick={() => setPeriod("all")}
+          className="tab-button"
           style={{
-            padding: '0.75rem 1.25rem',
-            fontSize: '0.9375rem',
+            padding: '0.625rem 0.875rem',
+            fontSize: '0.875rem',
             fontWeight: '600',
             background: 'transparent',
             color: period === "all" ? 'var(--purple)' : 'var(--charcoal)',
@@ -221,40 +224,40 @@ export default function Leaderboard() {
               justifyContent: 'center'
             }}>
               {index === 0 ? (
-                <div style={{
-                  width: '80px',
-                  height: '80px',
+                <div className="rank-badge-1" style={{
+                  width: '60px',
+                  height: '60px',
                   borderRadius: '50%',
                   background: 'linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '2.5rem',
-                  boxShadow: '0 8px 24px rgba(251, 191, 36, 0.4)',
-                  border: '3px solid white'
+                  fontSize: '1.75rem',
+                  boxShadow: '0 6px 16px rgba(251, 191, 36, 0.4)',
+                  border: '2px solid white'
                 }}>
                   🏆
                 </div>
               ) : index === 1 || index === 2 ? (
-                <div style={{
-                  width: '70px',
-                  height: '70px',
+                <div className="rank-badge-2-3" style={{
+                  width: '50px',
+                  height: '50px',
                   borderRadius: '50%',
                   background: 'linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '2rem',
+                  fontSize: '1.25rem',
                   fontWeight: '900',
                   color: 'white',
-                  boxShadow: '0 6px 20px rgba(124, 58, 237, 0.3)',
-                  border: '3px solid white'
+                  boxShadow: '0 4px 12px rgba(124, 58, 237, 0.3)',
+                  border: '2px solid white'
                 }}>
                   {index + 1}
                 </div>
               ) : (
-                <div style={{
-                  fontSize: '2rem',
+                <div className="rank-number" style={{
+                  fontSize: '1.5rem',
                   fontWeight: '900',
                   color: 'var(--charcoal)'
                 }}>
@@ -283,8 +286,8 @@ export default function Leaderboard() {
               alignItems: 'flex-end',
               justifyContent: 'center'
             }}>
-              <span style={{
-                fontSize: '3rem',
+              <span className="stat-number" style={{
+                fontSize: '2rem',
                 fontWeight: '900',
                 color: 'var(--navy)',
                 lineHeight: '1'
@@ -295,7 +298,7 @@ export default function Leaderboard() {
               </span>
               {user.averageGuesses !== null && (
                 <span style={{
-                  fontSize: '0.8125rem',
+                  fontSize: '0.75rem',
                   color: 'var(--charcoal)',
                   fontWeight: '500',
                   marginTop: '0.25rem'
