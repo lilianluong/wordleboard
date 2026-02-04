@@ -10,6 +10,8 @@ interface NavigationProps {
 
 export default function Navigation({ onSignOut, showSignOut = false }: NavigationProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [showInstall, setShowInstall] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = () => setMenuOpen(false);
@@ -18,6 +20,33 @@ export default function Navigation({ onSignOut, showSignOut = false }: Navigatio
       return () => document.removeEventListener('click', handleClickOutside);
     }
   }, [menuOpen]);
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstall(true);
+    };
+
+    window.addEventListener("beforeinstallprompt", handler);
+
+    return () => {
+      window.removeEventListener("beforeinstallprompt", handler);
+    };
+  }, []);
+
+  const handleInstall = async () => {
+    if (!deferredPrompt) return;
+
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+
+    if (outcome === "accepted") {
+      setShowInstall(false);
+    }
+
+    setDeferredPrompt(null);
+  };
 
   return (
     <nav style={{
@@ -64,6 +93,52 @@ export default function Navigation({ onSignOut, showSignOut = false }: Navigatio
             >
               Submit
             </Link>
+
+            {/* Install button */}
+            {showInstall && (
+              <button
+                onClick={handleInstall}
+                style={{
+                  background: 'var(--gold)',
+                  color: 'var(--navy)',
+                  padding: '0.5rem 1rem',
+                  borderRadius: '8px',
+                  border: 'none',
+                  fontWeight: '700',
+                  fontSize: '0.875rem',
+                  boxShadow: '0 4px 12px rgba(251, 191, 36, 0.25)',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.375rem'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 8px 24px rgba(251, 191, 36, 0.35)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(251, 191, 36, 0.25)';
+                }}
+              >
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                <span className="hidden sm:inline">Install</span>
+              </button>
+            )}
 
             {/* Hamburger menu */}
             <div style={{ position: 'relative' }}>

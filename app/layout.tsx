@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import InstallPrompt from "@/components/InstallPrompt";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 
 const geistSans = Geist({
@@ -28,7 +27,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/icons/icon-192x192.png",
-    apple: "/icons/icon-192x192.png",
+    apple: "/icons/apple-icon-180.png",
   },
 };
 
@@ -48,14 +47,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+        <link rel="apple-touch-icon" href="/icons/apple-icon-180.png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ServiceWorkerRegistration />
         {children}
-        <InstallPrompt />
       </body>
     </html>
   );

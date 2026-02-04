@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wordle Board - Style Options</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=DM+Sans:wght@400;500;600;700&family=Fraunces:wght@600;700;800;900&family=Archivo+Black&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #fafafa;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    .container { max-width: 1400px; margin: 0 auto; }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; color: #0f172a; }
+    .intro { font-size: 1.125rem; color: #64748b; margin-bottom: 3rem; }
+
+    .section {
+      background: white;
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: #0f172a;
+      border-bottom: 3px solid #e2e8f0;
+      padding-bottom: 0.75rem;
+    }
+
+    /* Color Options */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    .color-option {
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.2s;
+    }
+    .color-option:hover {
+      border-color: #94a3b8;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    .color-name {
+      font-weight: 700;
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      color: #0f172a;
+    }
+    .color-desc {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 1.25rem;
+    }
+    .swatches { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .swatch {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .color-demo {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    /* Typography Options */
+    .type-grid {
+      display: grid;
+      gap: 2.5rem;
+    }
+    .type-option {
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 2rem;
+      transition: all 0.2s;
+    }
+    .type-option:hover {
+      border-color: #94a3b8;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+    .type-name {
+      font-weight: 700;
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      color: #0f172a;
+    }
+    .type-desc {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 1.5rem;
+    }
+    .type-sample-display {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: #0f172a;
+      line-height: 1.1;
+    }
+    .type-sample-body {
+      font-size: 1rem;
+      color: #475569;
+      line-height: 1.6;
+    }
+    .type-sample-stat {
+      font-size: 4rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 1rem 0;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Wordle Board Style Options</h1>
+    <p class="intro">Pick your favorite color palette and typography combination. Each option is designed to be bold and distinctive without being ugly.</p>
+
+    <!-- COLOR PALETTES -->
+    <div class="section">
+      <h2 class="section-title">Color Palettes</h2>
+      <div class="color-grid">
+
+        <!-- Option 1: Vibrant Teal + Hot Pink -->
+        <div class="color-option">
+          <div class="color-name">Vibrant Teal + Hot Pink</div>
+          <div class="color-desc">Modern, energetic. Bright cyan/teal as primary with hot pink accents. Feels fresh and competitive.</div>
+          <div class="swatches">
+            <div class="swatch" style="background: #06b6d4; color: white;">Teal<br>#06b6d4</div>
+            <div class="swatch" style="background: #ec4899; color: white;">Pink<br>#ec4899</div>
+            <div class="swatch" style="background: #6aaa64; color: white;">Green<br>#6aaa64</div>
+            <div class="swatch" style="background: #0f172a; color: white;">Navy<br>#0f172a</div>
+          </div>
+          <div class="color-demo" style="background: #06b6d4; color: white;">Button / Primary Action</div>
+        </div>
+
+        <!-- Option 2: Electric Blue + Orange -->
+        <div class="color-option">
+          <div class="color-name">Electric Blue + Orange</div>
+          <div class="color-desc">Classic competitive energy. Bold blue with vibrant orange. Sports scoreboard vibes.</div>
+          <div class="swatches">
+            <div class="swatch" style="background: #2563eb; color: white;">Blue<br>#2563eb</div>
+            <div class="swatch" style="background: #f97316; color: white;">Orange<br>#f97316</div>
+            <div class="swatch" style="background: #6aaa64; color: white;">Green<br>#6aaa64</div>
+            <div class="swatch" style="background: #0f172a; color: white;">Navy<br>#0f172a</div>
+          </div>
+          <div class="color-demo" style="background: #2563eb; color: white;">Button / Primary Action</div>
+        </div>
+
+        <!-- Option 3: Deep Purple + Gold -->
+        <div class="color-option">
+          <div class="color-name">Deep Purple + Gold</div>
+          <div class="color-desc">Sophisticated boldness. Rich purple with luxe gold. Elegant but striking.</div>
+          <div class="swatches">
+            <div class="swatch" style="background: #7c3aed; color: white;">Purple<br>#7c3aed</div>
+            <div class="swatch" style="background: #fbbf24; color: #0f172a;">Gold<br>#fbbf24</div>
+            <div class="swatch" style="background: #6aaa64; color: white;">Green<br>#6aaa64</div>
+            <div class="swatch" style="background: #0f172a; color: white;">Navy<br>#0f172a</div>
+          </div>
+          <div class="color-demo" style="background: #7c3aed; color: white;">Button / Primary Action</div>
+        </div>
+
+        <!-- Option 4: Wordle Green + Charcoal -->
+        <div class="color-option">
+          <div class="color-name">Wordle Green + Charcoal</div>
+          <div class="color-desc">Refined minimalism. Authentic Wordle green as hero color with dark charcoal. Clean and confident.</div>
+          <div class="swatches">
+            <div class="swatch" style="background: #6aaa64; color: white;">Green<br>#6aaa64</div>
+            <div class="swatch" style="background: #1e293b; color: white;">Charcoal<br>#1e293b</div>
+            <div class="swatch" style="background: #f59e0b; color: white;">Amber<br>#f59e0b</div>
+            <div class="swatch" style="background: #0f172a; color: white;">Navy<br>#0f172a</div>
+          </div>
+          <div class="color-demo" style="background: #6aaa64; color: white;">Button / Primary Action</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TYPOGRAPHY OPTIONS -->
+    <div class="section">
+      <h2 class="section-title">Typography Pairings</h2>
+      <div class="type-grid">
+
+        <!-- Option 1: Inter Display + Inter -->
+        <div class="type-option">
+          <div class="type-name">Inter Display + Inter</div>
+          <div class="type-desc">Modern geometric. Clean, readable, professional. Very refined but maybe less distinctive.</div>
+          <div style="font-family: 'Inter', sans-serif;">
+            <div class="type-sample-display" style="font-weight: 900;">Leaderboard</div>
+            <div class="type-sample-stat">4/6</div>
+            <div class="type-sample-body">See how everyone did on today's Wordle. Track your progress and compete with friends.</div>
+          </div>
+        </div>
+
+        <!-- Option 2: Archivo Black + DM Sans -->
+        <div class="type-option">
+          <div class="type-name">Archivo Black + DM Sans</div>
+          <div class="type-desc">Bold headlines. Archivo Black for huge impact on stats/ranks, DM Sans for body. Strong personality.</div>
+          <div>
+            <div class="type-sample-display" style="font-family: 'Archivo Black', sans-serif;">Leaderboard</div>
+            <div class="type-sample-stat" style="font-family: 'Archivo Black', sans-serif;">4/6</div>
+            <div class="type-sample-body" style="font-family: 'DM Sans', sans-serif;">See how everyone did on today's Wordle. Track your progress and compete with friends.</div>
+          </div>
+        </div>
+
+        <!-- Option 3: Fraunces + Inter -->
+        <div class="type-option">
+          <div class="type-name">Fraunces + Inter</div>
+          <div class="type-desc">Sophisticated serif. Fraunces (modern serif with character) for display, Inter for body. Editorial elegance.</div>
+          <div>
+            <div class="type-sample-display" style="font-family: 'Fraunces', serif;">Leaderboard</div>
+            <div class="type-sample-stat" style="font-family: 'Fraunces', serif;">4/6</div>
+            <div class="type-sample-body" style="font-family: 'Inter', sans-serif;">See how everyone did on today's Wordle. Track your progress and compete with friends.</div>
+          </div>
+        </div>
+
+        <!-- Option 4: Inter (Single Family) -->
+        <div class="type-option">
+          <div class="type-name">Inter (Single Family)</div>
+          <div class="type-desc">Geometric with soul. Single high-quality font family with range (400-900 weights). Cohesive and distinctive.</div>
+          <div style="font-family: 'Inter', sans-serif;">
+            <div class="type-sample-display" style="font-weight: 800;">Leaderboard</div>
+            <div class="type-sample-stat" style="font-weight: 900;">4/6</div>
+            <div class="type-sample-body" style="font-weight: 500;">See how everyone did on today's Wordle. Track your progress and compete with friends.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section" style="background: #f1f5f9; text-align: center;">
+      <p style="color: #64748b; font-size: 1rem;">After viewing these options, let me know which color palette and typography pairing you prefer!</p>
+    </div>
+
+  </div>
+</body>
+</html>
